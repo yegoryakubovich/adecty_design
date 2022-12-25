@@ -13,3 +13,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
+from adecty_design.elements.config import Config
+from adecty_design.templates.get_element_html import get_element_html
+
+
+class Screen:
+    config: Config
+
+    def __init__(self):
+        pass
+
+    def generate_html(self, config: Config):
+        self.config = config
+
+        page_html = get_element_html('screen')
+        return page_html

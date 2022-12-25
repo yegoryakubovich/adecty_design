@@ -13,3 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
+from adecty_design.templates.get_element_html import get_element_html
+
+
+class NavigationItem:
+    def __init__(self, name: str, url: str, icon: str = None):
+        self.icon = icon
+        self.name = name
+        self.url = url
+
+    def generate_html(self):
+        navigation_item_html = get_element_html('navigation_item').format(icon=self.icon,
+                                                                          name=self.name,
+                                                                          url=self.url)
+        return navigation_item_html

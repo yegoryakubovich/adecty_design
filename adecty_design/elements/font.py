@@ -15,23 +15,14 @@
 #
 
 
-class Colors:
-    background: str
-    main: str
-    secondary: str
-
-    def __init__(self, colors: dict):
-        self.background = colors['background']
-        self.main = colors['main']
-        self.secondary = colors['secondary']
-
-
-class Config:
+class Font:
     name: str
-    logo: str
-    colors: Colors
+    html: str
+    css: str
+    html_name: str
 
-    def __init__(self, config: dict):
-        self.name = config['name']
-        self.logo = config['logo']
-        self.colors = Colors(config['colors'])
+    def __init__(self, name: str, html: str, css: str, html_name: str):
+        self.name = name
+        self.html = html
+        self.css = css
+        self.html_name = html_name

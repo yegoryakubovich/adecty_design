@@ -13,12 +13,45 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from adecty_design.config import Config
+
+
+from adecty_design.elements.config import Config
+from adecty_design.elements.header import Header
+from adecty_design.elements.footer import Footer
+from adecty_design.elements.page import Page
+from adecty_design.templates import get_css
+from adecty_design.templates.get_element_html import get_element_html
 
 
 class AdectyDesign:
     config: Config
-    navigation: dict
+    header: Header
+    footer: Footer
 
-    def __init__(self, config: dict):
-        self.config = Config(config=config)
+    def __init__(self, config: Config, header: Header, footer: Footer):
+        self.config = config
+        self.header = header
+        self.footer = footer
+
+    def generate_page_html(self, page: Page):
+        page_html = page.generate_html()
+
+        fonts_html = ''
+        for font in self.config.fonts:
+            fonts_html += font.html
+
+        css_html = get_css()
+        for font in self.config.fonts:
+            css_html += font.css
+        colors_html = self.config.colors.get_html()
+        styles = '<style>{}\n{}</style>'.format(colors_html, css_html)
+
+        base_html = get_element_html('base').format(
+            title=page.title,
+            fonts=fonts_html,
+            styles=styles,
+            header=self.header.generate_html(),
+            page=page_html,
+            footer=self.footer.generate_html(),
+        )
+        return base_html

@@ -13,3 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
+class Colors:
+    background: str
+    main: str
+    secondary: str
+
+    def __init__(self, background: str, main: str, secondary: str,):
+        self.background = background
+        self.main = main
+        self.secondary = secondary
+
+    def get_html(self):
+        colors = '--background: {};\n--main: {};\n--secondary: {};'.format(self.background, self.main, self.secondary)
+        return ':root {\n' + colors + '\n}'

@@ -13,3 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
+def get_element_html(element: str):
+    path = 'adecty_design/templates/html/{}.html'.format(element)
+    obj = open(path, 'r')
+    content = ''
+    for i in obj.readlines():
+        content += i.replace('\n', '')
+    obj.close()
+    return content

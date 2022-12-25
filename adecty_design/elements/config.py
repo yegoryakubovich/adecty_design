@@ -13,3 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
+from adecty_design.elements.colors import Colors
+
+
+class Config:
+    name: str
+    logo: str
+    colors: Colors
+    fonts: list
+
+    def __init__(self, name: str, logo: str, colors: Colors, fonts: list):
+        self.name = name
+        self.logo = logo
+        self.colors = colors
+        self.fonts = fonts

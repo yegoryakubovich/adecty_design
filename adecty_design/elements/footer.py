@@ -13,3 +13,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
+from adecty_design.elements.config import Config
+from adecty_design.templates.get_element_html import get_element_html
+
+
+class Footer:
+    logo: str
+    name: str
+
+    def __init__(self, config: Config):
+        self.logo = config.logo
+        self.name = config.name
+
+    def generate_html(self):
+        footer_html = get_element_html('footer')
+        footer_html = footer_html.format(logo=self.logo,
+                                         name=self.name)
+        return footer_html

@@ -13,3 +13,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
+class Authorization:
+    def __init__(self, authorized, unauthorized):
+        self.authorized = authorized
+        self.unauthorized = unauthorized
+
+    def generate_html(self, is_authorized=False):
+        if is_authorized:
+            return self.authorized.generate_html()
+        else:
+            return self.unauthorized.generate_html()

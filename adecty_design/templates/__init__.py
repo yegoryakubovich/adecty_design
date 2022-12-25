@@ -13,3 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
+from adecty_design.templates import get_element_html
+from adecty_design.templates.get_css import get_css
+
+
+__all__ = (get_element_html, get_css)
