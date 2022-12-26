@@ -33,10 +33,10 @@ class Page:
         self.screens = screens
 
     def generate_html(self):
-        page_html = get_element_html('page')
-
         screens_html = ''
         for screen in self.screens:
             screens_html += screen.generate_html(config=self.config)
+
+        page_html = get_element_html('page').format(screens=screens_html)
 
         return page_html

@@ -21,6 +21,7 @@
 
 
 body {
+    font-family: 'Montserrat Alternates', sans-serif;
     min-height: 100vh;
     margin: 0;
     display: flex;
@@ -73,14 +74,13 @@ body {
 }
 
 
-/* Navigation */
+/* Header & navigation */
 
 .header {
     width: 100vh;
     margin: 1vh 0;
     padding: 1.5vh;
     border-radius: 10px;
-    position: fixed;
     /*noinspection CssUnresolvedCustomProperty*/
     background: var(--main);
     color: #fff;
@@ -105,7 +105,6 @@ body {
 }
 
 .header__info__name {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
     font-weight: 900;
     font-size: 12px;
     margin-left: 4px;
@@ -128,8 +127,7 @@ body {
 }
 
 .header__navigation__item__name {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 12px;
 
     margin-left: 6px;

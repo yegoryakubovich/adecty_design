@@ -19,14 +19,27 @@ from adecty_design.elements.config import Config
 from adecty_design.templates.get_element_html import get_element_html
 
 
+class ScreenDirection:
+    vertical = 'VERTICAL'
+    horizontal = 'HORIZONTAL'
+
+
 class Screen:
     config: Config
+    direction: str
+    elements: list
 
-    def __init__(self):
-        pass
+    def __init__(self, elements: list, direction: str = ScreenDirection.vertical):
+        self.direction = direction
+        self.elements = elements
 
     def generate_html(self, config: Config):
         self.config = config
 
-        page_html = get_element_html('screen')
+        elements_html = ''
+        for element in self.elements:
+            elements_html += element.generate_html(config=config)
+            print(elements_html)
+
+        page_html = get_element_html('screen').format(elements=elements_html)
         return page_html
