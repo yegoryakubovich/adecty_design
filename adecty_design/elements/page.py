@@ -21,21 +21,17 @@ from adecty_design.templates.get_element_html import get_element_html
 
 
 class Page:
-    config: Config
     title: str
-    icon: str
     screens: list[Screen]
 
-    def __init__(self, config: Config, title: str, screens: list, icon: str = None):
-        self.config = config
+    def __init__(self, title: str, screens: list):
         self.title = title
-        self.icon = config.logo if not icon else icon
         self.screens = screens
 
-    def generate_html(self):
+    def generate_html(self, config: Config):
         screens_html = ''
         for screen in self.screens:
-            screens_html += screen.generate_html(config=self.config)
+            screens_html += screen.generate_html(config=config)
 
         page_html = get_element_html('page').format(screens=screens_html)
 

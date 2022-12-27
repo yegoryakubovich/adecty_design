@@ -34,24 +34,25 @@ class AdectyDesign:
         self.footer = footer
 
     def generate_page_html(self, page: Page):
-        page_html = page.generate_html()
+        page_html = page.generate_html(config=self.config)
 
         fonts_html = ''
         for font in self.config.fonts:
             fonts_html += font.html
 
-        css_html = get_css()
+        css_html = ''.join([get_css(name) for name in ['style', 'table']])
         for font in self.config.fonts:
             css_html += font.css
         colors_html = self.config.colors.get_html()
         styles = '<style>{}\n{}</style>'.format(colors_html, css_html)
 
-        base_html = get_element_html('base').format(
-            title=page.title,
-            fonts=fonts_html,
-            styles=styles,
-            header=self.header.generate_html(),
-            page=page_html,
-            footer=self.footer.generate_html(),
-        )
+        base_html_format = {
+            'title': page.title,
+            'fonts': fonts_html,
+            'styles': styles,
+            'header': self.header.generate_html(),
+            'page': page_html,
+            'footer': self.footer.generate_html(),
+        }
+        base_html = get_element_html('base').format(**base_html_format)
         return base_html

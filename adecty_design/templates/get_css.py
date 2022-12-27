@@ -15,8 +15,8 @@
 #
 
 
-def get_css():
-    path = 'adecty_design/templates/css/style.css'
+def get_css(name):
+    path = 'adecty_design/templates/css/{name}.css'.format(name=name)
     obj = open(path, 'r')
     content = ''
     for i in obj.readlines():

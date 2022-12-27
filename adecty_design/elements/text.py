@@ -35,7 +35,7 @@ class Text:
     font_size: int
     font_wight: int
 
-    def __init__(self, font: str, color: str, text: str,
+    def __init__(self, text: str, font: str = None, color: str = None,
                  width: int = 100, height: int = 100,
                  font_size: int = 12, font_wight: int = 600):
         self.width = width
@@ -52,10 +52,12 @@ class Text:
         font = next((font for font in config.fonts if font.name == self.font), config.fonts[0])
         font: Font
 
+        color = config.colors.main if not self.color else self.color
+
         styles = 'style="' \
                  'font-family: {font_css};' \
                  'font-size: {font_size}px;' \
-                 'color: {color};"'.format(font_css=font.html_name, font_size=self.font_size, color=self.color)
+                 'color: {color};"'.format(font_css=font.html_name, font_size=self.font_size, color=color)
 
         text_html = get_element_html('text').format(text=self.text, styles=styles)
         return text_html

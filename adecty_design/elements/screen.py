@@ -39,7 +39,6 @@ class Screen:
         elements_html = ''
         for element in self.elements:
             elements_html += element.generate_html(config=config)
-            print(elements_html)
 
         page_html = get_element_html('screen').format(elements=elements_html)
         return page_html
