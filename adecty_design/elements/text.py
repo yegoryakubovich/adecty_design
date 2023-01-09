@@ -46,7 +46,7 @@ class Text:
         self.font_size = font_size
         self.font_wight = font_wight
 
-    def generate_html(self, config: Config):
+    def get_html(self, config: Config):
         self.config = config
 
         font = next((font for font in config.fonts if font.name == self.font), config.fonts[0])

@@ -24,7 +24,3 @@ class Colors:
         self.background = background
         self.main = main
         self.secondary = secondary
-
-    def get_html(self):
-        colors = '--background: {};\n--main: {};\n--secondary: {};'.format(self.background, self.main, self.secondary)
-        return ':root {\n' + colors + '\n}'

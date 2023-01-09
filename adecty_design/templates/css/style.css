@@ -80,7 +80,7 @@ body {
     width: 100vh;
     margin: 1vh 0;
     padding: 1.5vh;
-    border-radius: 10px;
+    border-radius: var(--rounding);
     /*noinspection CssUnresolvedCustomProperty*/
     background: var(--main);
     color: #fff;

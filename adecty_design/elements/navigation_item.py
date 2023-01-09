@@ -24,7 +24,7 @@ class NavigationItem:
         self.name = name
         self.url = url
 
-    def generate_html(self):
+    def get_html(self):
         navigation_item_html = get_element_html('navigation_item').format(icon=self.icon,
                                                                           name=self.name,
                                                                           url=self.url)

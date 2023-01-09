@@ -27,7 +27,7 @@ class Footer:
         self.logo = config.logo
         self.name = config.name
 
-    def generate_html(self):
+    def get_html(self):
         footer_html = get_element_html('footer')
         footer_html = footer_html.format(logo=self.logo,
                                          name=self.name)

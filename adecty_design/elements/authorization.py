@@ -20,8 +20,8 @@ class Authorization:
         self.authorized = authorized
         self.unauthorized = unauthorized
 
-    def generate_html(self, is_authorized=False):
+    def get_html(self, is_authorized=False):
         if is_authorized:
-            return self.authorized.generate_html()
+            return self.authorized.get_html()
         else:
-            return self.unauthorized.generate_html()
+            return self.unauthorized.get_html()

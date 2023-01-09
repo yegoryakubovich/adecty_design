@@ -33,12 +33,12 @@ class Screen:
         self.direction = direction
         self.elements = elements
 
-    def generate_html(self, config: Config):
+    def get_html(self, config: Config):
         self.config = config
 
         elements_html = ''
         for element in self.elements:
-            elements_html += element.generate_html(config=config)
+            elements_html += element.get_html(config=config)
 
         page_html = get_element_html('screen').format(elements=elements_html)
         return page_html

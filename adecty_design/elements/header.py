@@ -30,12 +30,12 @@ class Header:
         self.name = config.name
         self.navigation_items = navigation_items
 
-    def generate_html(self):
+    def get_html(self):
         header_html = get_element_html('header')
 
         navigation_items_html = ''
         for navigation_item in self.navigation_items:
-            navigation_items_html += navigation_item.generate_html()
+            navigation_items_html += navigation_item.get_html()
 
         header_html = header_html.format(logo=self.logo,
                                          name=self.name,
