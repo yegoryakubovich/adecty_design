@@ -4,7 +4,13 @@
 
 Adecty Design is a module with which you can greatly simplify the development of the UI.
 
-## 2. License
+## 2. Versions
+
+- 0.1:
+    - application structure;
+    - basic elements.
+
+## 3. License
 
 (c) 2022, Yegor Yakubovich
 
