@@ -65,7 +65,7 @@ body {
 }
 
 
-/* Container */
+/* Container & page */
 
 .container {
     width: 100vh;
@@ -73,11 +73,20 @@ body {
     margin: 0 auto;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.page {
+  flex: 1 0 auto;
+}
+
 
 /* Header & navigation */
 
 .header {
-    width: 100vh;
     margin: 1vh 0;
     padding: 1.5vh;
     border-radius: var(--rounding);
@@ -132,4 +141,34 @@ body {
 
     margin-left: 6px;
     color: #fff;
+}
+
+/* Footer */
+
+.footer {
+    flex: 0 0 auto;
+    margin: 1vh 0;
+    padding: 1.5vh;
+    border-radius: var(--rounding);
+    /*noinspection CssUnresolvedCustomProperty*/
+    background: var(--main);
+    color: #fff;
+}
+
+.footer__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer__logo {
+    width: 24px;
+    height: 24px;
+    fill: #fff;
+}
+
+.footer__name {
+    font-weight: 900;
+    font-size: 12px;
+    margin-left: 4px;
 }

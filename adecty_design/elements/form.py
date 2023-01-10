@@ -16,25 +16,15 @@
 
 
 from adecty_design.elements.config import Config
-from adecty_design.templates.get_element_html import get_element_html
 
 
-class ScreenDirection:
-    vertical = 'VERTICAL'
-    horizontal = 'HORIZONTAL'
-
-
-class Screen:
-    config: Config
-    direction: str
+class Form:
     elements: list
 
-    def __init__(self, elements: list, direction: str = ScreenDirection.vertical):
-        self.direction = direction
+    def __init__(self, elements: list):
         self.elements = elements
 
     def get_html(self, config: Config):
         elements_html = ''.join([element.get_html(config=config) for element in self.elements])
-
-        page_html = get_element_html('screen').format(elements=elements_html)
-        return page_html
+        form_html = '<form method="post" class="form">{elements}</form>'.format(elements=elements_html)
+        return form_html

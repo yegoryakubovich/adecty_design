@@ -16,25 +16,28 @@
 
 
 from adecty_design.elements.config import Config
-from adecty_design.templates.get_element_html import get_element_html
 
 
-class ScreenDirection:
-    vertical = 'VERTICAL'
-    horizontal = 'HORIZONTAL'
+class InputTypes:
+    text = 'TEXT'
 
 
-class Screen:
-    config: Config
-    direction: str
-    elements: list
+class Input:
+    input_type: str
+    name: str
 
-    def __init__(self, elements: list, direction: str = ScreenDirection.vertical):
-        self.direction = direction
-        self.elements = elements
+    def __init__(self, input_type: str, name):
+        self.input_type = input_type
+        self.name = name
 
     def get_html(self, config: Config):
-        elements_html = ''.join([element.get_html(config=config) for element in self.elements])
+        styles = 'style="' \
+                 'width: 100vh;' \
+                 'margin: 8px 0;' \
+                 'padding: 12px 18px;' \
+                 'box-sizing: border-box;' \
+                 'border: 2px solid {border_color};' \
+                 'border-radius: var(--rounding);"'.format(border_color=config.colors.main)
 
-        page_html = get_element_html('screen').format(elements=elements_html)
-        return page_html
+        input_html = '<input {styles} type="text" name="{name}">'.format(styles=styles, name=self.name)
+        return input_html

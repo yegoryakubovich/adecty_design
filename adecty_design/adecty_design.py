@@ -46,5 +46,4 @@ class AdectyDesign:
             'footer': self.footer.get_html(),
         }
         base_html = get_element_html('base').format(**base_html_format)
-        print(base_html)
         return base_html
