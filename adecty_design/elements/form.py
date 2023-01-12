@@ -16,6 +16,7 @@
 
 
 from adecty_design.elements.config import Config
+from adecty_design.markups.markups import MarkupsHtml
 
 
 class Form:
@@ -24,7 +25,8 @@ class Form:
     def __init__(self, elements: list):
         self.elements = elements
 
-    def get_html(self, config: Config):
-        elements_html = ''.join([element.get_html(config=config) for element in self.elements])
-        form_html = '<form method="post" class="form">{elements}</form>'.format(elements=elements_html)
-        return form_html
+    def html_get(self, config: Config):
+        elements_html = ''.join([element.html_get(config=config) for element in self.elements])
+
+        html = MarkupsHtml.form.format(elements_html=elements_html)
+        return html

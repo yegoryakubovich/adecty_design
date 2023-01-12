@@ -17,7 +17,7 @@
 
 from adecty_design.elements.screen import Screen
 from adecty_design.elements.config import Config
-from adecty_design.templates.get_element_html import get_element_html
+from adecty_design.markups.markups import MarkupsHtml
 
 
 class Page:
@@ -28,11 +28,11 @@ class Page:
         self.title = title
         self.screens = screens
 
-    def get_html(self, config: Config):
+    def html_get(self, config: Config):
         screens_html = ''
         for screen in self.screens:
-            screens_html += screen.get_html(config=config)
+            screens_html += screen.html_get(config=config)
 
-        page_html = get_element_html('page').format(screens=screens_html)
+        page_html = MarkupsHtml.page.format(screens=screens_html)
 
         return page_html

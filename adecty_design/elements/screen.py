@@ -16,7 +16,7 @@
 
 
 from adecty_design.elements.config import Config
-from adecty_design.templates.get_element_html import get_element_html
+from adecty_design.markups.markups import MarkupsHtml
 
 
 class ScreenDirection:
@@ -33,8 +33,8 @@ class Screen:
         self.direction = direction
         self.elements = elements
 
-    def get_html(self, config: Config):
-        elements_html = ''.join([element.get_html(config=config) for element in self.elements])
+    def html_get(self, config: Config):
+        elements_html = ''.join([element.html_get(config=config) for element in self.elements])
 
-        page_html = get_element_html('screen').format(elements=elements_html)
+        page_html = MarkupsHtml.screen.format(elements=elements_html)
         return page_html

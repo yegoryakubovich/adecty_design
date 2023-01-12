@@ -16,46 +16,54 @@
 
 
 from adecty_design.elements.colors import Colors
-from adecty_design.templates import get_css
+
+from adecty_design.elements.fonts import Fonts
+from adecty_design.markups.markups import MarkupsHtml, MarkupsStyles
 
 
 class Config:
     name: str
     logo: str
     colors: Colors
+    fonts: Fonts
     rounding = int
-    fonts: list
 
-    def __init__(self, name: str, logo: str, colors: Colors, rounding: int, fonts: list):
+    def __init__(self, name: str, logo: str, colors: Colors, fonts: Fonts, rounding: int):
         self.name = name
         self.logo = logo
         self.colors = colors
-        self.rounding = rounding
         self.fonts = fonts
+        self.rounding = rounding
 
-    def get_html(self):
-        fonts_html = ''
-        for font in self.fonts:
-            fonts_html += font.html
+    def html_get(self):
+        html = '{fonts}{styles}'
 
-        styles_css = ''.join([get_css(name) for name in ['style', 'table']])
-        for font in self.fonts:
-            styles_css += font.css
-
-        variables = \
+        fonts = MarkupsHtml.fonts.format(font_main=self.fonts.main.html_init,
+                                         font_secondary=self.fonts.secondary.html_init)
+        styles_vars = ':root {' + \
             '--background: {color_background};' \
-            '--main: {color_main};' \
-            '--secondary: {color_secondary};' \
-            '--rounding: {rounding}px;'.format(color_background=self.colors.background,
-                                               color_main=self.colors.main,
-                                               color_secondary=self.colors.secondary,
-                                               rounding=self.rounding)
-        variables_css = ':root {' + variables + '}'
-        styles_html = '<style>{variables_css}{styles_css}</style>'.format(
-            variables_css=variables_css, styles_css=styles_css,
+            '--background_secondary: {color_background_secondary};' \
+            '--primary: {color_primary};' \
+            '--text: {color_text};' \
+            '--selected: {color_selected};' \
+            '--unselected: {color_unselected};'\
+            '--error: {color_error};' \
+            '--rounding: {rounding}px;'.format(
+                color_background=self.colors.background,
+                color_background_secondary=self.colors.background_secondary,
+                color_primary=self.colors.primary,
+                color_text=self.colors.text,
+                color_selected=self.colors.selected,
+                color_unselected=self.colors.unselected,
+                color_error=self.colors.error,
+                rounding=self.rounding
+            ) + \
+            '}'
+        styles = '<style>{styles_vars}{style_base}{style_header}{style_footer}{style_table}</style>'.format(
+            styles_vars=styles_vars,
+            style_base=MarkupsStyles.base,
+            style_header=MarkupsStyles.header,
+            style_footer=MarkupsStyles.footer,
+            style_table=MarkupsStyles.table,
         )
-
-        config_html = '{fonts_html}{styles_html}'.format(
-            fonts_html=fonts_html, styles_html=styles_html
-        )
-        return config_html
+        return html.format(fonts=fonts, styles=styles)

@@ -27,21 +27,21 @@ class Table:
         self.columns = columns
         self.rows = rows
 
-    def get_html(self, config: Config):
+    def html_get(self, config: Config):
         table_html = '<table class="table"><tr>{columns}</tr>{rows}</table>'
 
         columns_html = ''
         for column in self.columns:
-            column_element_html = Text(text=column, color=config.colors.background).get_html(config=config) \
-                if type(column) is str else column.get_html(config=config)
+            column_element_html = Text(text=column, color=config.colors.background).html_get(config=config) \
+                if type(column) is str else column.html_get(config=config)
             columns_html += '<th>{column_element}</th>'.format(column_element=column_element_html)
 
         rows_html = ''
         for row in self.rows:
             row_html = ''
             for element in row:
-                row_element_html = Text(text=element).get_html(config=config) if type(element) is str else \
-                    element.get_html(config=config)
+                row_element_html = Text(text=element).html_get(config=config) if type(element) is str else \
+                    element.html_get(config=config)
                 row_html += '<td>{row_element}</td>'.format(row_element=row_element_html)
             rows_html += '<tr>{row}</tr>'.format(row=row_html)
 

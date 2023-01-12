@@ -1,0 +1,2 @@
+recursive-include adecty_design/markups/html *.html
+recursive-include adecty_design/markups/css *.css

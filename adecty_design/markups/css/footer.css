@@ -1,0 +1,26 @@
+.footer {
+    flex: 0 0 auto;
+    margin: 1vh 0;
+    padding: 1.5vh;
+    border-radius: var(--rounding);
+    background: var(--primary);
+    color: var(--background);
+}
+
+.footer__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer__logo {
+    width: 24px;
+    height: 24px;
+    fill: var(--background);
+}
+
+.footer__name {
+    font-weight: 900;
+    font-size: 12px;
+    margin-left: 4px;
+}

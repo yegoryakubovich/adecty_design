@@ -16,13 +16,20 @@
 
 
 class Font:
-    name: str
-    html: str
+    html_init: str
+    css_init: str
     css: str
-    html_name: str
 
-    def __init__(self, name: str, html: str, css: str, html_name: str):
-        self.name = name
-        self.html = html
+    def __init__(self, html_init: str, css_init: str, css: str):
+        self.html_init = html_init
+        self.css_init = css_init
         self.css = css
-        self.html_name = html_name
+
+
+class Fonts:
+    main: Font
+    secondary: Font
+
+    def __init__(self, main: Font, secondary: Font):
+        self.main = main
+        self.secondary = secondary

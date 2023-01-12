@@ -15,8 +15,20 @@
 #
 
 
-from adecty_design.templates import get_element_html
-from adecty_design.templates.get_css import get_css
+from adecty_design.markups.markups import MarkupsHtml
 
 
-__all__ = (get_element_html, get_css)
+class HeaderNavigationItem:
+
+    def __init__(self, name: str, url: str, icon: str = None):
+        self.icon = icon
+        self.name = name
+        self.url = url
+
+    def html_get(self):
+        html = MarkupsHtml.header_navigation_item.format(
+            icon=self.icon,
+            name=self.name,
+            url=self.url
+        )
+        return html

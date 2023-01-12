@@ -17,12 +17,12 @@
 
 from adecty_design.adecty_design import AdectyDesign
 from adecty_design.elements.config import Config
-from adecty_design.elements.font import Font
+from adecty_design.elements.fonts import Font
 from adecty_design.elements.footer import Footer
 from adecty_design.elements.form import Form
 from adecty_design.elements.header import Header
 from adecty_design.elements.input import InputTypes, Input
-from adecty_design.elements.navigation_item import NavigationItem
+from adecty_design.elements.header_navigation_item import HeaderNavigationItem
 from adecty_design.elements.page import Page
 from adecty_design.elements.screen import ScreenDirection, Screen
 
@@ -38,8 +38,8 @@ __all__ = (
     'Page',
     'ScreenDirection',
     'Screen',
-    'NavigationItem',
+    'HeaderNavigationItem',
     'AdectyDesign',
 )
 
-__version__ = '0.1'
+__version__ = '0.0.1'

@@ -16,7 +16,7 @@
 
 
 from adecty_design.elements.config import Config
-from adecty_design.templates.get_element_html import get_element_html
+from adecty_design.markups.markups import MarkupsHtml
 
 
 class Footer:
@@ -27,8 +27,9 @@ class Footer:
         self.logo = config.logo
         self.name = config.name
 
-    def get_html(self):
-        footer_html = get_element_html('footer')
-        footer_html = footer_html.format(logo=self.logo,
-                                         name=self.name)
-        return footer_html
+    def html_get(self):
+        html = MarkupsHtml.footer.format(
+            logo=self.logo,
+            name=self.name
+        )
+        return html

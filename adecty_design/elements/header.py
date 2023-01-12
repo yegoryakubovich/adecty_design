@@ -16,28 +16,29 @@
 
 
 from adecty_design.elements.config import Config
-from adecty_design.elements.navigation_item import NavigationItem
-from adecty_design.templates.get_element_html import get_element_html
+from adecty_design.elements.header_navigation_item import HeaderNavigationItem
+from adecty_design.markups.markups import MarkupsHtml
 
 
 class Header:
     logo: str
     name: str
-    navigation_items: list[NavigationItem]
+    navigation_items: list[HeaderNavigationItem]
 
-    def __init__(self, config: Config, navigation_items: list[NavigationItem]):
+    def __init__(self, config: Config, navigation_items: list[HeaderNavigationItem]):
         self.logo = config.logo
         self.name = config.name
         self.navigation_items = navigation_items
 
-    def get_html(self):
-        header_html = get_element_html('header')
+    def html_get(self):
+        header_html = MarkupsHtml.header
 
-        navigation_items_html = ''
+        header_navigation_items_html = ''
         for navigation_item in self.navigation_items:
-            navigation_items_html += navigation_item.get_html()
+            header_navigation_items_html += navigation_item.html_get()
 
-        header_html = header_html.format(logo=self.logo,
-                                         name=self.name,
-                                         navigation__items=navigation_items_html)
+        header_html = header_html.format(
+            logo=self.logo,
+            name=self.name,
+            header_navigation_items_html=header_navigation_items_html)
         return header_html

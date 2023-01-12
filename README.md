@@ -6,7 +6,7 @@ Adecty Design is a module with which you can greatly simplify the development of
 
 ## 2. Versions
 
-- 0.1:
+- 0.1.0 (2023-01-12):
     - application structure;
     - basic elements.
 

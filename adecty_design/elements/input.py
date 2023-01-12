@@ -32,7 +32,7 @@ class Input:
         self.input_type = input_type
         self.kwargs = kwargs
 
-    def get_html(self, config: Config):
+    def html_get(self, config: Config):
         if self.input_type == InputTypes.text:
             styles = 'style="' \
                      'width: 100vh;' \
@@ -40,7 +40,7 @@ class Input:
                      'padding: 12px 18px;' \
                      'box-sizing: border-box;' \
                      'border: 2px solid {border_color};' \
-                     'border-radius: var(--rounding);"'.format(border_color=config.colors.main)
+                     'border-radius: var(--rounding);"'.format(border_color=config.colors.primary)
 
             input_html = '<input {styles} type="text" name="{name}">'.format(styles=styles, name=self.kwargs['name'])
         elif self.input_type == InputTypes.button:
@@ -53,10 +53,10 @@ class Input:
                      'padding: 12px 24px;' \
                      'cursor: pointer;' \
                      'border: 2px solid {border_color};' \
-                     'border-radius: var(--rounding);"'.format(font_css=config.fonts[0].html_name,
+                     'border-radius: var(--rounding);"'.format(font_css=config.fonts.main.css,
                                                                background_color=config.colors.background,
-                                                               color=config.colors.main,
-                                                               border_color=config.colors.main)
+                                                               color=config.colors.primary,
+                                                               border_color=config.colors.primary)
 
             input_html = '<input {styles} type="submit" value="{text}">'.format(
                 styles=styles, text=self.kwargs['text']

@@ -16,11 +16,39 @@
 
 
 class Colors:
-    background: str
-    main: str
-    secondary: str
 
-    def __init__(self, background: str, main: str, secondary: str,):
+    background: str
+    background_secondary: str
+    primary: str
+    text: str
+    selected: str
+    unselected: str
+    error: str
+
+    def __init__(self,
+                 background: str,
+                 background_secondary: str,
+                 primary: str,
+                 text: str,
+                 selected: str,
+                 unselected: str,
+                 error: str):
+
+        """
+        :param background: Application background color, will also be used as default text color on elements where
+        color is primary
+        :param background_secondary: For table rows
+        :param primary: The main color of your application
+        :param text: Color for all colors, except for links and texts located on elements with the primary color
+        :param selected: This color will be on elements that are selected, clicked or hovered over
+        :param unselected: This color will be on elements that are unselected (buttons, inputs & other)
+        :param error: For error window or text with an error
+        """
+
         self.background = background
-        self.main = main
-        self.secondary = secondary
+        self.background_secondary = background_secondary
+        self.primary = primary
+        self.text = text
+        self.selected = selected
+        self.unselected = unselected
+        self.error = error

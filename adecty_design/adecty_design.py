@@ -19,8 +19,7 @@ from adecty_design.elements.config import Config
 from adecty_design.elements.header import Header
 from adecty_design.elements.footer import Footer
 from adecty_design.elements.page import Page
-from adecty_design.templates import get_css
-from adecty_design.templates.get_element_html import get_element_html
+from adecty_design.markups.markups import MarkupsHtml
 
 
 class AdectyDesign:
@@ -34,16 +33,16 @@ class AdectyDesign:
         self.footer = footer
 
     def get_page_html(self, page: Page):
-        page_html = page.get_html(config=self.config)
+        page_html = page.html_get(config=self.config)
 
-        config_html = self.config.get_html()
+        config_html = self.config.html_get()
 
         base_html_format = {
             'title': page.title,
             'config': config_html,
-            'header': self.header.get_html(),
+            'header': self.header.html_get(),
             'page': page_html,
-            'footer': self.footer.get_html(),
+            'footer': self.footer.html_get(),
         }
-        base_html = get_element_html('base').format(**base_html_format)
+        base_html = MarkupsHtml.base.format(**base_html_format)
         return base_html

@@ -13,13 +13,3 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-
-def get_css(name):
-    path = 'adecty_design/templates/css/{name}.css'.format(name=name)
-    obj = open(path, 'r')
-    content = ''
-    for i in obj.readlines():
-        content += i.replace('\n', '')
-    obj.close()
-    return content
