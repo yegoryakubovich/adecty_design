@@ -45,3 +45,4 @@ class MarkupsStyles:
     header = css_get('header')
     footer = css_get('footer')
     table = css_get('table')
+    dictionary = css_get('dictionary')

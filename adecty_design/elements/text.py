@@ -33,18 +33,18 @@ class Text:
     color: str
     text: str
     font_size: int
-    font_wight: int
+    font_weight: int
 
     def __init__(self, text: str, font: Font = None, color: str = None,
                  width: int = 100, height: int = 100,
-                 font_size: int = 12, font_wight: int = 600):
+                 font_size: int = 12, font_weight: int = 600):
         self.width = width
         self.height = height
         self.font = font
         self.color = color
         self.text = text
         self.font_size = font_size
-        self.font_wight = font_wight
+        self.font_weight = font_weight
 
     def html_get(self, config: Config):
         self.config = config
@@ -55,7 +55,11 @@ class Text:
         styles = 'style="' \
                  'font-family: {font_css};' \
                  'font-size: {font_size}px;' \
-                 'color: {color};"'.format(font_css=font.css, font_size=self.font_size, color=color)
+                 'font-weight: {font_weight}px;' \
+                 'color: {color};"'.format(font_css=font.css,
+                                           font_size=self.font_size,
+                                           font_weight=self.font_weight,
+                                           color=color)
 
         text_html = MarkupsHtml.text.format(text=self.text, styles=styles)
         return text_html

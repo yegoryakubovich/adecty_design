@@ -41,29 +41,30 @@ class Config:
         fonts = MarkupsHtml.fonts.format(font_main=self.fonts.main.html_init,
                                          font_secondary=self.fonts.secondary.html_init)
         styles_vars = ':root {' + \
-            '--background: {color_background};' \
-            '--background_secondary: {color_background_secondary};' \
-            '--primary: {color_primary};' \
-            '--text: {color_text};' \
-            '--selected: {color_selected};' \
-            '--unselected: {color_unselected};'\
-            '--error: {color_error};' \
-            '--rounding: {rounding}px;'.format(
-                color_background=self.colors.background,
-                color_background_secondary=self.colors.background_secondary,
-                color_primary=self.colors.primary,
-                color_text=self.colors.text,
-                color_selected=self.colors.selected,
-                color_unselected=self.colors.unselected,
-                color_error=self.colors.error,
-                rounding=self.rounding
-            ) + \
-            '}'
-        styles = '<style>{styles_vars}{style_base}{style_header}{style_footer}{style_table}</style>'.format(
+                      '--background: {color_background};' \
+                      '--background_secondary: {color_background_secondary};' \
+                      '--primary: {color_primary};' \
+                      '--text: {color_text};' \
+                      '--selected: {color_selected};' \
+                      '--unselected: {color_unselected};' \
+                      '--error: {color_error};' \
+                      '--rounding: {rounding}px;'.format(
+                          color_background=self.colors.background,
+                          color_background_secondary=self.colors.background_secondary,
+                          color_primary=self.colors.primary,
+                          color_text=self.colors.text,
+                          color_selected=self.colors.selected,
+                          color_unselected=self.colors.unselected,
+                          color_error=self.colors.error,
+                          rounding=self.rounding
+                      ) + '}'
+        styles = '<style>{styles_vars}{style_base}{style_header}{style_footer}{style_table}{style_dictionary}</style>'
+        styles = styles.format(
             styles_vars=styles_vars,
             style_base=MarkupsStyles.base,
             style_header=MarkupsStyles.header,
             style_footer=MarkupsStyles.footer,
             style_table=MarkupsStyles.table,
+            style_dictionary=MarkupsStyles.dictionary,
         )
         return html.format(fonts=fonts, styles=styles)

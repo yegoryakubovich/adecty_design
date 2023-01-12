@@ -42,7 +42,11 @@ class Input:
                      'border: 2px solid {border_color};' \
                      'border-radius: var(--rounding);"'.format(border_color=config.colors.primary)
 
-            input_html = '<input {styles} type="text" name="{name}">'.format(styles=styles, name=self.kwargs['name'])
+            input_html = '<input {styles} type="text" name="{name}" value="{value}">'.format(
+                styles=styles,
+                name=self.kwargs['name'],
+                value=self.kwargs['value'] if 'value' in self.kwargs.keys() else '',
+            )
         elif self.input_type == InputTypes.button:
             styles = 'style="' \
                      'font-family: {font_css};' \
