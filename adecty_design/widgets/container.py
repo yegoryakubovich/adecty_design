@@ -12,21 +12,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 
-from adecty_design.elements.config import Config
 from adecty_design.markups.markups import MarkupsHtml
 
 
-class Form:
-    elements: list
+class Container:
+    widgets: list
 
-    def __init__(self, elements: list):
-        self.elements = elements
+    def __init__(self, widgets: list):
+        self.widgets = widgets
 
-    def html_get(self, config: Config):
-        elements_html = ''.join([element.html_get(config=config) for element in self.elements])
+    def html_get(self, **kwargs):
+        widgets_html = ''.join([widget.html_get(**kwargs) for widget in self.widgets])
 
-        html = MarkupsHtml.form.format(elements_html=elements_html)
-        return html
+        container_html = MarkupsHtml.container.format(widgets_html=widgets_html)
+        return container_html

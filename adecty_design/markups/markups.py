@@ -29,10 +29,9 @@ def css_get(name: str):
 
 
 class MarkupsHtml:
-    base = html_get('base')
-    fonts = '{font_main}{font_secondary}'
+    interface_html = html_get('base')
     page = html_get('page')
-    screen = html_get('screen')
+    container = html_get('screen')
     header = html_get('header')
     header_navigation_item = html_get('header_navigation_item')
     text = html_get('text')

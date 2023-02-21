@@ -15,8 +15,7 @@
 #
 
 
-from adecty_design.elements.config import Config
-from adecty_design.elements.text import Text
+from adecty_design.widgets.text import Text
 
 
 class Dictionary:
@@ -27,7 +26,7 @@ class Dictionary:
         self.keys = keys
         self.values = values
 
-    def html_get(self, config: Config):
+    def html_get(self, **kwargs):
         dictionary_html = '<table class="dictionary">{rows_html}</table>'
 
         rows_html = ''
@@ -35,10 +34,10 @@ class Dictionary:
             key = self.keys[i]
             value = self.values[i]
 
-            key_html = Text(text=key).html_get(config=config) \
-                if type(key) is str else key.html_get(config=config)
-            value_html = Text(text=value).html_get(config=config) \
-                if type(value) is str else value.html_get(config=config)
+            key_html = Text(text=key).html_get(**kwargs) \
+                if type(key) is str else key.html_get(**kwargs)
+            value_html = Text(text=value).html_get(**kwargs) \
+                if type(value) is str else value.html_get(**kwargs)
 
             rows_html += '<tr><td>{key_html}</td><td>{value_html}</td></tr>'.format(
                 key_html=key_html,

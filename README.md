@@ -4,13 +4,20 @@
 
 Adecty Design is a module with which you can greatly simplify the development of the UI.
 
-## 2. Versions
+## 2. Install
+
+```pip install adecty_design```
+
+Read more on the [pypi.com](https://pypi.org/project/adecty-design/).
+
+
+## 3. Versions
 
 - 0.1.0 (2023-01-12):
     - application structure;
     - basic elements.
 
-## 3. License
+## 4. License
 
 (c) 2022, Yegor Yakubovich
 

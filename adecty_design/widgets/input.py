@@ -15,9 +15,6 @@
 #
 
 
-from adecty_design.elements.config import Config
-
-
 class InputTypes:
     text = 'text'
     button = 'button'
@@ -32,7 +29,7 @@ class Input:
         self.input_type = input_type
         self.kwargs = kwargs
 
-    def html_get(self, config: Config):
+    def html_get(self, **kwargs):
         if self.input_type == InputTypes.text:
             styles = 'style="' \
                      'width: 100vh;' \
@@ -40,7 +37,9 @@ class Input:
                      'padding: 12px 18px;' \
                      'box-sizing: border-box;' \
                      'border: 2px solid {border_color};' \
-                     'border-radius: var(--rounding);"'.format(border_color=config.colors.primary)
+                     'background-color : var(--background);' \
+                     'color : var(--text);' \
+                     'border-radius: var(--rounding);"'.format(border_color=kwargs.get('colors').primary)
 
             input_html = '<input {styles} type="text" name="{name}" value="{value}">'.format(
                 styles=styles,
@@ -57,16 +56,16 @@ class Input:
                      'padding: 12px 24px;' \
                      'cursor: pointer;' \
                      'border: 2px solid {border_color};' \
-                     'border-radius: var(--rounding);"'.format(font_css=config.fonts.main.css,
-                                                               background_color=config.colors.background,
-                                                               color=config.colors.primary,
-                                                               border_color=config.colors.primary)
+                     'border-radius: var(--rounding);"'.format(font_css=kwargs.get('font').css,
+                                                               background_color=kwargs.get('colors').background,
+                                                               color=kwargs.get('colors').primary,
+                                                               border_color=kwargs.get('colors').primary)
 
             input_html = '<input {styles} type="submit" value="{text}">'.format(
                 styles=styles, text=self.kwargs['text']
             )
         elif self.input_type == InputTypes.file:
-            input_html = '<input type="file" name="file">'
+            input_html = '<input type="file" name="{name}">'.format(name=self.kwargs['name'],)
         else:
             return ''
         return input_html

@@ -15,19 +15,6 @@
 #
 
 
-from adecty_design.elements.config import Config
-
-
-class Url:
-    url: str
-    elements: list
-
-    def __init__(self, url: str, elements: list):
-        self.url = url
-        self.elements = elements
-
-    def html_get(self, config: Config):
-        url_html = '<a href="{url}">{elements_html}</a>'
-        elements_html = ''.join([element.html_get(config=config) for element in self.elements])
-
-        return url_html.format(url=self.url, elements_html=elements_html)
+class Device:
+    x = 1
+    y = 1

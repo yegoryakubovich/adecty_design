@@ -15,21 +15,17 @@
 #
 
 
-class Font:
-    html_init: str
-    css_init: str
-    css: str
-
-    def __init__(self, html_init: str, css_init: str, css: str):
-        self.html_init = html_init
-        self.css_init = css_init
-        self.css = css
+from adecty_design.markups.markups import MarkupsHtml
 
 
-class Fonts:
-    main: Font
-    secondary: Font
+class Form:
+    elements: list
 
-    def __init__(self, main: Font, secondary: Font):
-        self.main = main
-        self.secondary = secondary
+    def __init__(self, elements: list):
+        self.elements = elements
+
+    def html_get(self, **kwargs):
+        elements_html = ''.join([element.html_get(**kwargs) for element in self.elements])
+
+        html = MarkupsHtml.form.format(elements_html=elements_html)
+        return html

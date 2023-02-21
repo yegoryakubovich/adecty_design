@@ -15,21 +15,12 @@
 #
 
 
-from adecty_design.elements.config import Config
-from adecty_design.markups.markups import MarkupsHtml
+class Font:
+    html_init: str
+    css_init: str
+    css: str
 
-
-class Footer:
-    logo: str
-    name: str
-
-    def __init__(self, config: Config):
-        self.logo = config.logo
-        self.name = config.name
-
-    def html_get(self):
-        html = MarkupsHtml.footer.format(
-            logo=self.logo,
-            name=self.name
-        )
-        return html
+    def __init__(self, html_init: str, css_init: str, css: str):
+        self.html_init = html_init
+        self.css_init = css_init
+        self.css = css

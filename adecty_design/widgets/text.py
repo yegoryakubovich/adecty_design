@@ -15,8 +15,7 @@
 #
 
 
-from adecty_design.elements.config import Config
-from adecty_design.elements.fonts import Font
+from adecty_design.font import Font
 from adecty_design.markups.markups import MarkupsHtml
 
 
@@ -26,7 +25,6 @@ class TextType:
 
 
 class Text:
-    config: Config
     width: int
     height: int
     font: Font
@@ -46,11 +44,9 @@ class Text:
         self.font_size = font_size
         self.font_weight = font_weight
 
-    def html_get(self, config: Config):
-        self.config = config
-
-        font = self.config.fonts.main if not self.font else self.font
-        color = config.colors.text if not self.color else self.color
+    def html_get(self, **kwargs):
+        font = kwargs.get('font') if not self.font else self.font
+        color = kwargs.get('colors').text if not self.color else self.color
 
         styles = 'style="' \
                  'font-family: {font_css};' \

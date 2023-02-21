@@ -15,24 +15,16 @@
 #
 
 
-from adecty_design.elements.screen import Screen
-from adecty_design.elements.config import Config
-from adecty_design.markups.markups import MarkupsHtml
+class Url:
+    url: str
+    elements: list
 
+    def __init__(self, url: str, elements: list):
+        self.url = url
+        self.elements = elements
 
-class Page:
-    title: str
-    screens: list[Screen]
+    def html_get(self, **kwargs):
+        url_html = '<a href="{url}">{elements_html}</a>'
+        elements_html = ''.join([element.html_get(**kwargs) for element in self.elements])
 
-    def __init__(self, title: str, screens: list):
-        self.title = title
-        self.screens = screens
-
-    def html_get(self, config: Config):
-        screens_html = ''
-        for screen in self.screens:
-            screens_html += screen.html_get(config=config)
-
-        page_html = MarkupsHtml.page.format(screens=screens_html)
-
-        return page_html
+        return url_html.format(url=self.url, elements_html=elements_html)

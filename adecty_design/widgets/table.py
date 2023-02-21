@@ -15,8 +15,7 @@
 #
 
 
-from adecty_design.elements.config import Config
-from adecty_design.elements.text import Text
+from adecty_design.widgets.text import Text
 
 
 class Table:
@@ -27,21 +26,26 @@ class Table:
         self.columns = columns
         self.rows = rows
 
-    def html_get(self, config: Config):
+    def html_get(self, **kwargs):
         table_html = '<table class="table"><tr>{columns}</tr>{rows}</table>'
 
         columns_html = ''
         for column in self.columns:
-            column_element_html = Text(text=column, color=config.colors.background).html_get(config=config) \
-                if type(column) is str else column.html_get(config=config)
+            column_element_html = Text(text=column, color=kwargs.get('colors').background).html_get(**kwargs) \
+                if type(column) is str else column.html_get(**kwargs)
             columns_html += '<th>{column_element}</th>'.format(column_element=column_element_html)
 
         rows_html = ''
         for row in self.rows:
             row_html = ''
             for element in row:
-                row_element_html = Text(text=element).html_get(config=config) if type(element) is str else \
-                    element.html_get(config=config)
+                row_element_html = ''
+                if type(element) is list:
+                    row_element_html += ''.join([e.html_get(**kwargs) for e in element])
+                elif type(element) is str:
+                    row_element_html += Text(text=element).html_get(**kwargs)
+                else:
+                    row_element_html += element.html_get(**kwargs)
                 row_html += '<td>{row_element}</td>'.format(row_element=row_element_html)
             rows_html += '<tr>{row}</tr>'.format(row=row_html)
 

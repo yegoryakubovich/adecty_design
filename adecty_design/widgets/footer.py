@@ -18,17 +18,14 @@
 from adecty_design.markups.markups import MarkupsHtml
 
 
-class HeaderNavigationItem:
+class Footer:
 
-    def __init__(self, name: str, url: str, icon: str = None):
-        self.icon = icon
-        self.name = name
-        self.url = url
+    def __init__(self):
+        pass
 
-    def html_get(self):
-        html = MarkupsHtml.header_navigation_item.format(
-            icon=self.icon,
-            name=self.name,
-            url=self.url
+    def html_get(self, **kwargs):
+        footer_html = MarkupsHtml.footer.format(
+            logo=kwargs.get('logo'),
+            name=kwargs.get('name')
         )
-        return html
+        return footer_html

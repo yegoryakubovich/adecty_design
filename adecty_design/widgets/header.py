@@ -15,9 +15,23 @@
 #
 
 
-from adecty_design.elements.config import Config
-from adecty_design.elements.header_navigation_item import HeaderNavigationItem
 from adecty_design.markups.markups import MarkupsHtml
+
+
+class HeaderNavigationItem:
+
+    def __init__(self, name: str, url: str, icon: str = None):
+        self.icon = icon
+        self.name = name
+        self.url = url
+
+    def html_get(self):
+        html = MarkupsHtml.header_navigation_item.format(
+            icon=self.icon,
+            name=self.name,
+            url=self.url
+        )
+        return html
 
 
 class Header:
@@ -25,12 +39,10 @@ class Header:
     name: str
     navigation_items: list[HeaderNavigationItem]
 
-    def __init__(self, config: Config, navigation_items: list[HeaderNavigationItem]):
-        self.logo = config.logo
-        self.name = config.name
+    def __init__(self, navigation_items: list[HeaderNavigationItem]):
         self.navigation_items = navigation_items
 
-    def html_get(self):
+    def html_get(self, **kwargs):
         header_html = MarkupsHtml.header
 
         header_navigation_items_html = ''
@@ -38,7 +50,7 @@ class Header:
             header_navigation_items_html += navigation_item.html_get()
 
         header_html = header_html.format(
-            logo=self.logo,
-            name=self.name,
+            logo=kwargs.get('logo'),
+            name=kwargs.get('name'),
             header_navigation_items_html=header_navigation_items_html)
         return header_html
