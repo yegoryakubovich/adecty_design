@@ -29,18 +29,18 @@ def css_get(name: str):
 
 
 class MarkupsHtml:
-    interface_html = html_get('base')
-    page = html_get('page')
-    container = html_get('screen')
+    interface_html = html_get('interface')
     header = html_get('header')
     header_navigation_item = html_get('header_navigation_item')
-    text = html_get('text')
     footer = html_get('footer')
+
+    text = html_get('text')
+    container = html_get('container')
     form = html_get('form')
 
 
 class MarkupsStyles:
-    base = css_get('base')
+    interface = css_get('interface')
     header = css_get('header')
     footer = css_get('footer')
     table = css_get('table')

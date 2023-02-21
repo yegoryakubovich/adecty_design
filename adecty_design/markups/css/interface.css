@@ -67,7 +67,7 @@ body {
 /* Container & page */
 
 .container {
-    width: 960px;
+    width: 75%;
     margin: 0 auto;
 }
 
@@ -77,6 +77,6 @@ body {
   height: 100vh;
 }
 
-.page {
+.widgets {
   flex: 1 0 auto;
 }

@@ -1,22 +1,16 @@
-.footer {
-    flex: 0 0 auto;
+.footer__inner {
+    bottom: 0;
+
     margin: 1vh 0;
-    padding: 1.5vh;
+    padding: 16px;
+    flex: 0 0 auto;
     border-radius: var(--rounding);
     background: var(--primary);
     color: var(--background);
-}
 
-.footer__inner {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.footer__logo {
-    width: 24px;
-    height: 24px;
-    fill: var(--background);
 }
 
 .footer__name {

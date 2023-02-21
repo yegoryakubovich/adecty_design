@@ -1,6 +1,6 @@
 .header__inner {
     margin: 1vh 0;
-    padding: 1.5vh;
+    padding: 16px;
     border-radius: var(--rounding);
     background: var(--primary);
     color: var(--background);
@@ -14,12 +14,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.header__info__logo {
-    width: 24px;
-    height: 24px;
-    fill: var(--background);
 }
 
 .header__info__name {

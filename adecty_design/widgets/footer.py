@@ -25,7 +25,6 @@ class Footer:
 
     def html_get(self, **kwargs):
         footer_html = MarkupsHtml.footer.format(
-            logo=kwargs.get('logo'),
-            name=kwargs.get('name')
+            logo=kwargs.get('logo').svg_get(height=16, color=kwargs.get('colors').background),
         )
         return footer_html

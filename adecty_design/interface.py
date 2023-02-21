@@ -15,6 +15,11 @@
 #
 
 
+from xml.dom.minidom import parseString
+from xml.etree import ElementTree
+
+from lxml import etree
+
 from adecty_design.device import Device
 from adecty_design.widgets.header import Header
 from adecty_design.widgets.footer import Footer
@@ -22,6 +27,7 @@ from adecty_design.markups.markups import MarkupsHtml, MarkupsStyles
 from adecty_design.colors import Colors
 from adecty_design.font import Font
 from adecty_design.widgets.container import Container
+from adecty_design.widgets.vector import Vector
 
 
 class Interface:
@@ -35,9 +41,10 @@ class Interface:
     footer: Footer
 
     def __init__(self,
-                 logo: str, logo_mini: str, name: str, rounding: int,
+                 logo: Vector, logo_mini: Vector, name: str, rounding: int,
                  colors: Colors, font: Font,
                  header: Header = None, footer: Footer = None):
+
         self.logo = logo
         self.logo_mini = logo_mini
         self.name = name
@@ -48,9 +55,6 @@ class Interface:
         self.footer = footer
 
     def html_get(self, widgets: list[Container], device: Device):
-        header_html = ''
-        footer_html = ''
-
         kwargs = {
             'logo': self.logo,
             'logo_mini': self.logo_mini,
@@ -59,6 +63,9 @@ class Interface:
             'font': self.font,
             'device': device,
         }
+
+        header_html = self.header.html_get(**kwargs)
+        footer_html = self.footer.html_get(**kwargs)
 
         widgets_html = ''.join([widget.html_get(**kwargs) for widget in widgets])
         config_html = self.config_html_get()
@@ -98,7 +105,7 @@ class Interface:
         styles = '<style>{styles_vars}{style_base}{style_header}{style_footer}{style_table}{style_dictionary}</style>'
         styles = styles.format(
             styles_vars=styles_vars,
-            style_base=MarkupsStyles.base,
+            style_base=MarkupsStyles.interface,
             style_header=MarkupsStyles.header,
             style_footer=MarkupsStyles.footer,
             style_table=MarkupsStyles.table,
