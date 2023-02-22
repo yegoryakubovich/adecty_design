@@ -36,6 +36,8 @@ class MarkupsHtml:
 
     navigation_mobile = html_get('navigation_mobile')
     navigation_mobile_item = html_get('navigation_mobile_item')
+    navigation_desktop = html_get('navigation_desktop')
+    navigation_desktop_item = html_get('navigation_desktop_item')
 
     text = html_get('text')
     container = html_get('container')

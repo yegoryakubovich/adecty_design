@@ -60,7 +60,7 @@ class Interface:
             'font': self.font,
         }
 
-        navigation_mobile_html = self.navigation.html_get(active=active, **kwargs)
+        navigation_desktop_html, navigation_mobile_html = self.navigation.html_get(active=active, **kwargs)
 
         header_html = self.header.html_get(**kwargs)
         footer_html = self.footer.html_get(**kwargs, navigation_mobile_html=navigation_mobile_html)
@@ -72,6 +72,7 @@ class Interface:
             'name': self.name,
             'config_html': config_html,
             'header_html': header_html,
+            'navigation_desktop_html': navigation_desktop_html,
             'widgets_html': widgets_html,
             'footer_html': footer_html,
         }

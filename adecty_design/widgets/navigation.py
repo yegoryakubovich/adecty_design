@@ -35,38 +35,62 @@ class NavigationItem:
     def html_get(self, active: bool, **kwargs):
         colors = kwargs.get('colors')
 
-        name_html = Text(
+        desktop_name_html = Text(
+            text=self.name,
+            color=colors.background if active else colors.background_secondary,
+            font_size=18,
+            font_weight=600,
+        ).html_get(**kwargs)
+        desktop_icon_html = self.icon.svg_get(
+            height=18,
+            class_name='navigation__desktop__item__icon__active' if active else 'navigation__desktop__item__icon',
+        )
+        mobile_name_html = Text(
             text=self.name,
             color=colors.primary if active else colors.background_secondary,
-            font_size=8,
+            font_size=10,
             font_weight=700,
         ).html_get(**kwargs)
-        icon_html = self.icon.svg_get(
-            height=18,
+        mobile_icon_html = self.icon.svg_get(
+            height=28,
             class_name='navigation__mobile__item__icon__active' if active else 'navigation__mobile__item__icon',
         )
 
+        navigation_desktop_item = MarkupsHtml.navigation_desktop_item.format(
+            url=self.url,
+            name_html=desktop_name_html,
+            icon_html=desktop_icon_html,
+        )
         navigation_mobile_item = MarkupsHtml.navigation_mobile_item.format(
             url=self.url,
-            name_html=name_html,
-            icon_html=icon_html)
-        return navigation_mobile_item
+            name_html=mobile_name_html,
+            icon_html=mobile_icon_html,
+        )
+        return navigation_desktop_item, navigation_mobile_item
 
 
 class Navigation:
-    mobile: list[NavigationItem]
+    items: list[NavigationItem]
     desktop: list[NavigationItem]
 
-    def __init__(self, mobile: list[NavigationItem]):
-        self.mobile = mobile
+    def __init__(self, items: list[NavigationItem]):
+        self.items = items
 
     def html_get(self, active: str, **kwargs):
-        navigation_mobile_items_html = ''.join([navigation_mobile_item.html_get(
-            active=True if active == navigation_mobile_item.id else False,
-            **kwargs,
-        ) for navigation_mobile_item in self.mobile])
+        navigation_desktop_items_html, navigation_mobile_items_html = '', ''
+        for item in self.items:
+            navigation_desktop_item_html, navigation_mobile_item_html = item.html_get(
+                active=True if active == item.id else False,
+                **kwargs,
+            )
+            navigation_desktop_items_html += navigation_desktop_item_html
+            navigation_mobile_items_html += navigation_mobile_item_html
+
+        navigation_desktop_html = MarkupsHtml.navigation_desktop.format(
+            items_html=navigation_desktop_items_html,
+        )
         navigation_mobile_html = MarkupsHtml.navigation_mobile.format(
-            navigation_mobile_items_html=navigation_mobile_items_html,
+            items_html=navigation_mobile_items_html,
         )
 
-        return navigation_mobile_html
+        return navigation_desktop_html, navigation_mobile_html

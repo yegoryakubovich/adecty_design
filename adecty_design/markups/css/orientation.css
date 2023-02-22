@@ -15,26 +15,42 @@
         border-radius: 0 0 var(--rounding) var(--rounding);
 
         background: var(--background);
-        box-shadow: 0 10px 10px -12px #999;
+        box-shadow: 0 -12px 10px 8px #999;
 
         justify-content: center;
     }
 
+    .header__logo {
+        margin: 4px;
+        height: 2.2vh;
+        width: 50vw;
+    }
+
     .footer__inner {
         margin: 0;
-        padding: 8px;
+        padding: 8px 0;
         border-radius: var(--rounding) var(--rounding) 0 0;
 
         background: var(--background);
-        box-shadow: 0 10px 10px 6px #999;
+        box-shadow: 0 12px 20px 0 #999;
     }
 
     .header__logo {
         fill: var(--primary);
     }
 
+    .footer__inner {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
     .footer__logo {
         fill: var(--primary);
+        display: none;
+    }
+
+    .navigation__desktop {
         display: none;
     }
 }
