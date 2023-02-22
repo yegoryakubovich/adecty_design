@@ -1,0 +1,22 @@
+.navigation__mobile {
+    color: var(--primary);
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+.navigation__mobile__item {
+    text-decoration: none;
+    text-align: center;
+}
+
+
+.navigation__mobile__item__icon {
+    fill: var(--background_secondary);
+}
+
+.navigation__mobile__item__icon__active {
+    fill: var(--background_primary);
+}

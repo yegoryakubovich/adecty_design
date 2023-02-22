@@ -67,7 +67,7 @@ body {
 /* Container & page */
 
 .container {
-    width: 75%;
+    width: var(--width);
     margin: 0 auto;
 }
 

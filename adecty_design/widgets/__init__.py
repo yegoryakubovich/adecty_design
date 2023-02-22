@@ -22,6 +22,7 @@ from adecty_design.widgets.footer import Footer
 from adecty_design.widgets.form import Form
 from adecty_design.widgets.header import Header, HeaderNavigationItem
 from adecty_design.widgets.input import Input
+from adecty_design.widgets.navigation import Navigation, NavigationItem
 from adecty_design.widgets.table import Table
 from adecty_design.widgets.text import Text
 from adecty_design.widgets.url import Url
@@ -31,6 +32,8 @@ __all__ = (
     'Header',
     'HeaderNavigationItem',
     'Footer',
+    'Navigation',
+    'NavigationItem',
     'Container',
     'Button',
     'Text',

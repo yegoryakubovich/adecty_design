@@ -19,12 +19,12 @@ from adecty_design.markups.markups import MarkupsHtml
 
 
 class Footer:
-
     def __init__(self):
         pass
 
     def html_get(self, **kwargs):
         footer_html = MarkupsHtml.footer.format(
-            logo=kwargs.get('logo').svg_get(height=16, color=kwargs.get('colors').background),
+            logo=kwargs.get('logo').svg_get(height=16, class_name='footer__logo'),
+            navigation_mobile_html=kwargs.get('navigation_mobile_html'),
         )
         return footer_html

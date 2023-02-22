@@ -1,20 +1,14 @@
 .footer__inner {
-    bottom: 0;
-
     margin: 1vh 0;
     padding: 16px;
-    flex: 0 0 auto;
     border-radius: var(--rounding);
     background: var(--primary);
     color: var(--background);
 
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
-.footer__name {
-    font-weight: 900;
-    font-size: 12px;
-    margin-left: 4px;
+.footer__logo {
+    fill: var(--background);
 }

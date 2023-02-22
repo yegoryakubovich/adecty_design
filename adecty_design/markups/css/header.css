@@ -1,4 +1,7 @@
 .header__inner {
+    position: fixed;
+    width: var(--width);
+
     margin: 1vh 0;
     padding: 16px;
     border-radius: var(--rounding);
@@ -10,16 +13,9 @@
     align-items: center;
 }
 
-.header__info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.header__info__name {
-    font-weight: 900;
-    font-size: 12px;
-    margin-left: 4px;
+.header__logo {
+    fill: var(--background);
 }
 
 .header__navigation__inner {

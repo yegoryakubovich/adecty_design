@@ -34,6 +34,9 @@ class MarkupsHtml:
     header_navigation_item = html_get('header_navigation_item')
     footer = html_get('footer')
 
+    navigation_mobile = html_get('navigation_mobile')
+    navigation_mobile_item = html_get('navigation_mobile_item')
+
     text = html_get('text')
     container = html_get('container')
     form = html_get('form')
@@ -41,7 +44,11 @@ class MarkupsHtml:
 
 class MarkupsStyles:
     interface = css_get('interface')
+    orientation = css_get('orientation')
     header = css_get('header')
     footer = css_get('footer')
+
+    navigation = css_get('navigation')
+
     table = css_get('table')
     dictionary = css_get('dictionary')

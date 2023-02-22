@@ -18,25 +18,24 @@
 from xml.etree import ElementTree
 from xml.etree.ElementTree import Element
 
-from lxml import etree
-
 
 class Vector:
     svg: Element
     width: int
     height: int
 
-    def __init__(self, svg: str):
+    def __init__(self, path: str):
         ElementTree.register_namespace('', 'http://www.w3.org/2000/svg')
-        self.svg = ElementTree.fromstring(svg)
+        self.svg = ElementTree.fromstring(open(path, "r").read())
+        self.svg.set('fill', '')
+        for e in self.svg:
+            e.set('fill', '')
         self.width = int(self.svg.get('width'))
         self.height = int(self.svg.get('height'))
 
-    def svg_get(self, height: int, color: str):
+    def svg_get(self, height: int, class_name: str):
         svg_current = self.svg
         svg_current.set('width', str(int(self.width*height/self.height)))
         svg_current.set('height', str(int(height)))
-        svg_current.set('fill', color)
-        for e in svg_current:
-            e.set('fill', color)
+        svg_current.set('class', class_name)
         return ElementTree.tostring(svg_current, encoding='unicode')

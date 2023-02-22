@@ -45,10 +45,10 @@ class Header:
     def html_get(self, **kwargs):
         header_html = MarkupsHtml.header
 
-        header_navigation_items_html = ''
-        for navigation_item in self.navigation_items:
-            header_navigation_items_html += navigation_item.html_get()
+        header_navigation_items_html = ''.join([navigation_item.html_get()
+                                                for navigation_item in self.navigation_items])
+
         header_html = header_html.format(
-            logo=kwargs.get('logo').svg_get(height=16, color=kwargs.get('colors').background),
+            logo=kwargs.get('logo').svg_get(height=16, class_name='header__logo'),
             header_navigation_items_html=header_navigation_items_html)
         return header_html

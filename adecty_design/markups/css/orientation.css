@@ -1,0 +1,40 @@
+@media screen and (orientation: landscape) {
+    .navigation__mobile {
+        display: none;
+    }
+}
+
+
+@media screen and (orientation: portrait) {
+    :root {
+        --width: 100%;
+    }
+
+    .header__inner {
+        margin: 0;
+        border-radius: 0 0 var(--rounding) var(--rounding);
+
+        background: var(--background);
+        box-shadow: 0 10px 10px -12px #999;
+
+        justify-content: center;
+    }
+
+    .footer__inner {
+        margin: 0;
+        padding: 8px;
+        border-radius: var(--rounding) var(--rounding) 0 0;
+
+        background: var(--background);
+        box-shadow: 0 10px 10px 6px #999;
+    }
+
+    .header__logo {
+        fill: var(--primary);
+    }
+
+    .footer__logo {
+        fill: var(--primary);
+        display: none;
+    }
+}

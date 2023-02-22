@@ -51,11 +51,13 @@ class Text:
         styles = 'style="' \
                  'font-family: {font_css};' \
                  'font-size: {font_size}px;' \
-                 'font-weight: {font_weight}px;' \
-                 'color: {color};"'.format(font_css=font.css,
-                                           font_size=self.font_size,
-                                           font_weight=self.font_weight,
-                                           color=color)
+                 'font-weight: {font_weight};' \
+                 'color: {color};"'.format(
+            font_css=font.css,
+            font_size=self.font_size,
+            font_weight=self.font_weight,
+            color=color,
+        )
 
         text_html = MarkupsHtml.text.format(text=self.text, styles=styles)
         return text_html
