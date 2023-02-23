@@ -13,8 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-
+from adecty_design.widgets.card import Card
 from adecty_design.widgets.container import Container
 from adecty_design.widgets.button import Button
 from adecty_design.widgets.dictionary import Dictionary
@@ -43,4 +42,5 @@ __all__ = (
     'Input',
     'Text',
     'Url',
+    'Card',
 )

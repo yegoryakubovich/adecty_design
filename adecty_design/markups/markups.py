@@ -28,6 +28,11 @@ def css_get(name: str):
     return open('{path}/css/{name}.css'.format(path=path, name=name), 'r').read()
 
 
+def js_get(name: str):
+    path = dirname(realpath(__file__))
+    return open('{path}/js/{name}.js'.format(path=path, name=name), 'r').read()
+
+
 class MarkupsHtml:
     interface_html = html_get('interface')
     header = html_get('header')
@@ -42,6 +47,7 @@ class MarkupsHtml:
     text = html_get('text')
     container = html_get('container')
     form = html_get('form')
+    card = html_get('card')
 
 
 class MarkupsStyles:
@@ -54,3 +60,8 @@ class MarkupsStyles:
 
     table = css_get('table')
     dictionary = css_get('dictionary')
+
+
+class MarkupsScripts:
+    widgets = js_get('widgets')
+    autoupdate = js_get('autoupdate')

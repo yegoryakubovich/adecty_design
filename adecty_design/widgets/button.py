@@ -33,7 +33,7 @@ class Button:
                  'padding: 12px 24px;' \
                  'cursor: pointer;' \
                  'border: 2px solid {border_color};' \
-                 'border-radius: var(--rounding);"'.format(font_css=kwargs.get('fonts').main.css,
+                 'border-radius: var(--rounding);"'.format(font_css=kwargs.get('font').css,
                                                            background_color=kwargs.get('colors').background,
                                                            color=kwargs.get('colors').primary,
                                                            border_color=kwargs.get('colors').primary)

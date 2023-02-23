@@ -43,6 +43,10 @@ h1, h2, h3, h4, h5, h6 {
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+}
+
 
 /* Setting values */
 
@@ -84,5 +88,5 @@ body {
 }
 
 .widgets {
-    width: 100%;
+    padding: 0 16px;
 }

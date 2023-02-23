@@ -17,7 +17,7 @@
 
 from adecty_design.widgets.header import Header
 from adecty_design.widgets.footer import Footer
-from adecty_design.markups.markups import MarkupsHtml, MarkupsStyles
+from adecty_design.markups.markups import MarkupsHtml, MarkupsStyles, MarkupsScripts
 from adecty_design.colors import Colors
 from adecty_design.font import Font
 from adecty_design.widgets.container import Container
@@ -39,8 +39,7 @@ class Interface:
     def __init__(self,
                  logo: Vector, logo_mini: Vector, name: str, rounding: int,
                  colors: Colors, font: Font, navigation: Navigation,
-                 header: Header = None, footer: Footer = None,):
-
+                 header: Header = None, footer: Footer = None, ):
         self.logo = logo
         self.logo_mini = logo_mini
         self.name = name
@@ -51,7 +50,7 @@ class Interface:
         self.header = header
         self.footer = footer
 
-    def html_get(self, widgets: list[Container], active: str):
+    def html_get(self, widgets: list | tuple, active: str):
         kwargs = {
             'logo': self.logo,
             'logo_mini': self.logo_mini,
@@ -68,10 +67,13 @@ class Interface:
         widgets_html = ''.join([widget.html_get(**kwargs) for widget in widgets])
         config_html = self.config_html_get()
 
+        scripts_js = self.scripts_js_get()
+
         base_html_format = {
             'name': self.name,
             'config_html': config_html,
             'header_html': header_html,
+            'scripts_js': scripts_js,
             'navigation_desktop_html': navigation_desktop_html,
             'widgets_html': widgets_html,
             'footer_html': footer_html,
@@ -115,3 +117,12 @@ class Interface:
             style_orientation=MarkupsStyles.orientation,
         )
         return html.format(fonts=fonts, styles=styles)
+
+    def scripts_js_get(self):
+        return '\n'.join([
+            '<script>{sctipt_js}</script>'.format(sctipt_js=sctipt_js)
+            for sctipt_js in [
+                MarkupsScripts.widgets,
+                MarkupsScripts.autoupdate,
+            ]
+        ])

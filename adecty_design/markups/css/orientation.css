@@ -53,4 +53,8 @@
     .navigation__desktop {
         display: none;
     }
+
+    .widgets {
+        margin-left: 0;
+    }
 }
