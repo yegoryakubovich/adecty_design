@@ -13,9 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
 from adecty_design.widgets.card import Card
 from adecty_design.widgets.container import Container
-from adecty_design.widgets.button import Button
+from adecty_design.widgets.button import Button, ButtonType
 from adecty_design.widgets.dictionary import Dictionary
 from adecty_design.widgets.footer import Footer
 from adecty_design.widgets.form import Form
@@ -25,6 +27,7 @@ from adecty_design.widgets.navigation import Navigation, NavigationItem
 from adecty_design.widgets.table import Table
 from adecty_design.widgets.text import Text
 from adecty_design.widgets.url import Url
+from adecty_design.widgets.view import View, ViewType
 
 
 __all__ = (
@@ -34,7 +37,10 @@ __all__ = (
     'Navigation',
     'NavigationItem',
     'Container',
+    'View',
+    'ViewType',
     'Button',
+    'ButtonType',
     'Text',
     'Dictionary',
     'Table',

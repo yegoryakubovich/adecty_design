@@ -12,34 +12,32 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 
 from adecty_design.markups.markups import MarkupsHtml
-from adecty_design.properties import Properties, Padding
 
 
-class Card:
-    properties: Properties
+class ViewType:
+    vertical = 'vertical'
+    horizontal = 'horizontal'
+
+
+class View:
     widgets: list
+    type: str
 
-    def __init__(self, widgets: list, properties: Properties = Properties(padding=Padding(horizontal=12, vertical=12))):
-        self.properties = Properties(
-            margin=properties.margin,
-            padding=properties.padding if not properties.padding.is_empty() else
-            Padding(horizontal=12, vertical=12),
-            background_color=properties.background_color if properties.background_color else
-            'var(--background)',
-            text_color=properties.text_color if properties.text_color else
-            'var(--text)',
-        )
+    def __init__(self, widgets: list, type: str = ViewType.vertical):
         self.widgets = widgets
+        self.type = type
 
     def html_get(self, **kwargs):
-        widgets_html = ''.join([widget.html_get(**kwargs) for widget in self.widgets])
-        properties = self.properties.html_get()
+        view_html = MarkupsHtml.view_vertical
+        if self.type == ViewType.horizontal:
+            view_html = MarkupsHtml.view_horizontal
 
-        card_html = MarkupsHtml.card.format(
-            properties=properties,
+        widgets_html = ''.join([widget.html_get(**kwargs) for widget in self.widgets])
+
+        return view_html.format(
             widgets_html=widgets_html,
         )
-        return card_html

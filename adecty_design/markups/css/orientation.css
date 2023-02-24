@@ -39,6 +39,10 @@
         fill: var(--primary);
     }
 
+    .wrapper > .container {
+        padding: 8px 0 0 0;
+    }
+
     .footer__inner {
         position: fixed;
         bottom: 0;

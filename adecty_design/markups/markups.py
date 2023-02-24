@@ -44,7 +44,14 @@ class MarkupsHtml:
     navigation_desktop = html_get('navigation_desktop')
     navigation_desktop_item = html_get('navigation_desktop_item')
 
+    view_vertical = html_get('view/vertical')
+    view_horizontal = html_get('view/horizontal')
+
     text = html_get('text')
+
+    button_default = html_get('button/default')
+    button_chip = html_get('button/chip')
+
     container = html_get('container')
     form = html_get('form')
     card = html_get('card')
@@ -58,10 +65,11 @@ class MarkupsStyles:
 
     navigation = css_get('navigation')
 
+    view = css_get('view')
+
     table = css_get('table')
     dictionary = css_get('dictionary')
 
 
 class MarkupsScripts:
-    widgets = js_get('widgets')
-    autoupdate = js_get('autoupdate')
+    orientation = js_get('orientation')

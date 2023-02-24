@@ -14,9 +14,6 @@
 # limitations under the License.
 
 
-from adecty_design.markups.markups import MarkupsHtml
-
-
 class Margin:
     top: int | float | str
     down: int | float | str
@@ -56,11 +53,11 @@ class Margin:
         if self.top:
             top = '{top}{unit}'.format(top=self.top, unit='' if type(self.top) == str else 'px')
         if self.down:
-            top = '{top}{unit}'.format(top=self.down, unit='' if type(self.down) == str else 'px')
+            down = '{top}{unit}'.format(top=self.down, unit='' if type(self.down) == str else 'px')
         if self.left:
-            top = '{top}{unit}'.format(top=self.left, unit='' if type(self.left) == str else 'px')
+            left = '{top}{unit}'.format(top=self.left, unit='' if type(self.left) == str else 'px')
         if self.right:
-            top = '{top}{unit}'.format(top=self.right, unit='' if type(self.right) == str else 'px')
+            right = '{top}{unit}'.format(top=self.right, unit='' if type(self.right) == str else 'px')
 
         return '{top} {right} {down} {left}'.format(
             top=top,
@@ -68,6 +65,13 @@ class Margin:
             left=left,
             right=right,
         )
+
+    def is_empty(self):
+        if not self.horizontal and not self.vertical and \
+                not self.left and not self.top and not self.right and not self.down:
+            return True
+        else:
+            return False
 
 
 class Padding(Margin):
@@ -77,24 +81,29 @@ class Padding(Margin):
 class Properties:
     margin: Margin
     padding: Padding
-    background: str
+    background_color: str
+    text_color: str
 
     def __init__(self,
-                 margin: Margin = None,
-                 padding: Padding = None,
-                 background: str = None):
+                 margin: Margin = Margin(),
+                 padding: Padding = Padding(),
+                 background_color: str = None,
+                 text_color: str = None):
         self.margin = margin
         self.padding = padding
-        self.background = background
+        self.background_color = background_color
+        self.text_color = text_color
 
-    def html_get(self, **kwargs):
+    def html_get(self):
         properties = []
         if self.margin:
             properties.append('margin: {margin};'.format(margin=self.margin.html_get()))
         if self.padding:
             properties.append('padding: {padding};'.format(padding=self.padding.html_get()))
-        if self.background:
-            properties.append('background-color: {background};'.format(background=self.background))
+        if self.background_color:
+            properties.append('background-color: {background};'.format(background=self.background_color))
+        if self.text_color:
+            properties.append('color: {text_color};'.format(text_color=self.text_color))
 
         properties_html = ''.join(properties)
         return properties_html

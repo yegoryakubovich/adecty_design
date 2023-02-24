@@ -17,6 +17,7 @@
 
 from adecty_design.font import Font
 from adecty_design.markups.markups import MarkupsHtml
+from adecty_design.properties import Properties
 
 
 class TextType:
@@ -32,10 +33,12 @@ class Text:
     text: str
     font_size: int
     font_weight: int
+    properties: Properties
 
     def __init__(self, text: str, font: Font = None, color: str = None,
                  width: int = 100, height: int = 100,
-                 font_size: int = 12, font_weight: int = 600):
+                 font_size: int = 12, font_weight: int = 600,
+                 properties: Properties = Properties()):
         self.width = width
         self.height = height
         self.font = font
@@ -43,16 +46,19 @@ class Text:
         self.text = text
         self.font_size = font_size
         self.font_weight = font_weight
+        self.properties = properties
 
     def html_get(self, **kwargs):
         font = kwargs.get('font') if not self.font else self.font
         color = kwargs.get('colors').text if not self.color else self.color
 
         styles = 'style="' \
+                 'margin: {margin};' \
                  'font-family: {font_css};' \
                  'font-size: {font_size}px;' \
                  'font-weight: {font_weight};' \
                  'color: {color};"'.format(
+            margin=self.properties.margin.html_get(),
             font_css=font.css,
             font_size=self.font_size,
             font_weight=self.font_weight,

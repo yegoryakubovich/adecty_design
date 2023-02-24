@@ -15,28 +15,85 @@
 #
 
 
-class Button:
-    url: str
-    value: str
+from adecty_design.markups.markups import MarkupsHtml
+from adecty_design.properties import Properties, Margin, Padding
 
-    def __init__(self, url: str, value: str):
+
+class ButtonType:
+    default = 'default'
+    chip = 'chip'
+
+
+class Button:
+    type: str
+    name: str
+    value: str
+    properties: Properties
+
+    def __init__(self,
+                 url: str, name: str,
+                 type: str = ButtonType.default,
+                 properties: Properties = Properties()):
+        self.type = type
         self.url = url
-        self.value = value
+        self.name = name
+
+        if type == ButtonType.default:
+            self.properties = Properties(
+                margin=properties.margin if not properties.margin.is_empty() else
+                Margin(horizontal=8),
+                padding=properties.padding if not properties.padding.is_empty() else
+                Padding(horizontal=12, vertical=24),
+                background_color=properties.background_color if properties.background_color else
+                'var(--background)',
+                text_color=properties.text_color if properties.text_color else
+                'var(--text)',
+            )
+        elif type == ButtonType.chip:
+            self.properties = Properties(
+                margin=properties.margin if not properties.margin.is_empty() else
+                Margin(horizontal=4, right=8),
+                padding=properties.padding if not properties.padding.is_empty() else
+                Padding(horizontal=6, vertical=16),
+                background_color=properties.background_color if properties.background_color else
+                'var(--background_secondary)',
+                text_color=properties.text_color if properties.text_color else
+                'var(--text)',
+            )
 
     def html_get(self, **kwargs):
-        styles = 'style="' \
-                 'font-family: {font_css};' \
-                 'font-weight: 600;' \
-                 'background-color: {background_color};' \
-                 'color: {color};' \
-                 'margin: 8px 0;' \
-                 'padding: 12px 24px;' \
-                 'cursor: pointer;' \
-                 'border: 2px solid {border_color};' \
-                 'border-radius: var(--rounding);"'.format(font_css=kwargs.get('font').css,
-                                                           background_color=kwargs.get('colors').background,
-                                                           color=kwargs.get('colors').primary,
-                                                           border_color=kwargs.get('colors').primary)
-        button_html = '<form action="{url}"><input {styles} type="submit" value="{value}" /></form>'
-
-        return button_html.format(url=self.url, value=self.value, styles=styles)
+        if self.type == ButtonType.default:
+            style = 'font-family: {font_css};' \
+                    'font-weight: 600;' \
+                    'background-color: {background_color};' \
+                    'color: {color};' \
+                    'margin: {margin};' \
+                    'padding: {padding};' \
+                    'cursor: pointer;' \
+                    'border: 2px solid {border_color};' \
+                    'border-radius: var(--rounding);'.format(font_css=kwargs.get('font').css,
+                                                             background_color=kwargs.get('colors').background,
+                                                             color=kwargs.get('colors').primary,
+                                                             margin=self.properties.margin.html_get(),
+                                                             padding=self.properties.padding.html_get(),
+                                                             border_color=kwargs.get('colors').primary)
+            button_html = MarkupsHtml.button_default
+            return button_html.format(url=self.url, name=self.name, style=style)
+        elif self.type == ButtonType.chip:
+            button_chip = MarkupsHtml.button_chip
+            style = 'font-family: {font_css};' \
+                    'font-weight: 600;' \
+                    'background-color: {background_color};' \
+                    'color: {color};' \
+                    'margin: {margin};' \
+                    'padding: {padding};' \
+                    'cursor: pointer;' \
+                    'border: 0;' \
+                    'border-radius: 100px;'.format(
+                font_css=kwargs.get('font').css,
+                background_color=self.properties.background_color,
+                color=self.properties.text_color,
+                margin=self.properties.margin.html_get(),
+                padding=self.properties.padding.html_get(),
+            )
+            return button_chip.format(url=self.url, icon='', name=self.name, style=style)

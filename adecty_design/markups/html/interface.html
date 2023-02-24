@@ -6,12 +6,11 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <title>{name}</title>
     {config_html}
-    {scripts_js}
   </head>
   <body>
     <div class="wrapper">
       {header_html}
-      <div class="container">
+      <div class="container" id="container">
         {navigation_desktop_html}
         <div class="widgets" id="widgets">
           {widgets_html}
@@ -20,4 +19,5 @@
       {footer_html}
     </div>
   </body>
+  {scripts_js}
 </html>

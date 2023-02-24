@@ -20,7 +20,6 @@ from adecty_design.widgets.footer import Footer
 from adecty_design.markups.markups import MarkupsHtml, MarkupsStyles, MarkupsScripts
 from adecty_design.colors import Colors
 from adecty_design.font import Font
-from adecty_design.widgets.container import Container
 from adecty_design.widgets.navigation import Navigation
 from adecty_design.widgets.vector import Vector
 
@@ -105,7 +104,7 @@ class Interface:
                           rounding=self.rounding
                       ) + '}'
         styles = '<style>{styles_vars}{style_base}{style_header}{style_footer}{style_navigation}' \
-                 '{style_table}{style_dictionary}{style_orientation}</style>'
+                 '{style_table}{style_dictionary}{style_orientation}{style_view}</style>'
         styles = styles.format(
             styles_vars=styles_vars,
             style_base=MarkupsStyles.interface,
@@ -115,6 +114,7 @@ class Interface:
             style_table=MarkupsStyles.table,
             style_dictionary=MarkupsStyles.dictionary,
             style_orientation=MarkupsStyles.orientation,
+            style_view=MarkupsStyles.view,
         )
         return html.format(fonts=fonts, styles=styles)
 
@@ -122,7 +122,6 @@ class Interface:
         return '\n'.join([
             '<script>{sctipt_js}</script>'.format(sctipt_js=sctipt_js)
             for sctipt_js in [
-                MarkupsScripts.widgets,
-                MarkupsScripts.autoupdate,
+                MarkupsScripts.orientation,
             ]
         ])
