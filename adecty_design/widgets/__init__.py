@@ -16,7 +16,6 @@
 
 
 from adecty_design.widgets.card import Card
-from adecty_design.widgets.container import Container
 from adecty_design.widgets.button import Button, ButtonType
 from adecty_design.widgets.dictionary import Dictionary
 from adecty_design.widgets.footer import Footer
@@ -36,7 +35,6 @@ __all__ = (
     'Footer',
     'Navigation',
     'NavigationItem',
-    'Container',
     'View',
     'ViewType',
     'Button',

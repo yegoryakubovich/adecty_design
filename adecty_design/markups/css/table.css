@@ -7,7 +7,7 @@
     border-spacing: 0;
 }
 
-.table td, .table th {
+.table > td, .table > th {
     border: 0;
     padding: 8px;
 }
@@ -28,8 +28,8 @@
     color: white;
 }
 
-table tr th,
-table tr td {
+table > tr th,
+table > tr td {
     padding: 5px;
 }
 

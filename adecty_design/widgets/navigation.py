@@ -37,7 +37,7 @@ class NavigationItem:
 
         desktop_name_html = Text(
             text=self.name,
-            color=colors.background if active else colors.background_secondary,
+            color=colors.background if active else colors.primary_secondary,
             font_size=18,
             font_weight=600,
         ).html_get(**kwargs)

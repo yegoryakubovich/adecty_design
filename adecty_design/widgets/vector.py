@@ -33,7 +33,7 @@ class Vector:
         self.width = int(self.svg.get('width'))
         self.height = int(self.svg.get('height'))
 
-    def svg_get(self, height: int, class_name: str):
+    def svg_get(self, height: int, class_name: str = ''):
         svg_current = self.svg
         svg_current.set('width', str(int(self.width*height/self.height)))
         svg_current.set('height', str(int(height)))

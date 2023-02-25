@@ -14,17 +14,8 @@
 # limitations under the License.
 
 
-from adecty_design.markups.markups import MarkupsHtml
+from adecty_design.properties import Margin
 
 
-class Container:
-    widgets: list
-
-    def __init__(self, widgets: list):
-        self.widgets = widgets
-
-    def html_get(self, **kwargs):
-        widgets_html = ''.join([widget.html_get(**kwargs) for widget in self.widgets])
-
-        container_html = MarkupsHtml.container.format(widgets_html=widgets_html)
-        return container_html
+class Padding(Margin):
+    pass

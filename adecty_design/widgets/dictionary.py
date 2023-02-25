@@ -39,9 +39,11 @@ class Dictionary:
             value_html = Text(text=value).html_get(**kwargs) \
                 if type(value) is str else value.html_get(**kwargs)
 
-            rows_html += '<tr><td>{key_html}</td><td>{value_html}</td></tr>'.format(
+            rows_html += '<tr>' \
+                         '<td class="dictionary__key">{key_html}</td><td class="dictionary__value">{value_html}</td>' \
+                         '</tr>'.format(
                 key_html=key_html,
-                value_html=value_html
+                value_html=value_html,
             )
 
         return dictionary_html.format(rows_html=rows_html)

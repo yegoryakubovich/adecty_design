@@ -89,18 +89,22 @@ class Interface:
                       '--background: {color_background};' \
                       '--background_secondary: {color_background_secondary};' \
                       '--primary: {color_primary};' \
+                      '--primary_secondary: {color_primary_secondary};' \
                       '--text: {color_text};' \
                       '--selected: {color_selected};' \
                       '--unselected: {color_unselected};' \
-                      '--error: {color_error};' \
+                      '--negative: {color_negative};' \
+                      '--positive: {color_positive};' \
                       '--rounding: {rounding}px;'.format(
                           color_background=self.colors.background,
                           color_background_secondary=self.colors.background_secondary,
                           color_primary=self.colors.primary,
+                          color_primary_secondary=self.colors.primary_secondary,
                           color_text=self.colors.text,
                           color_selected=self.colors.selected,
                           color_unselected=self.colors.unselected,
-                          color_error=self.colors.error,
+                          color_negative=self.colors.negative,
+                          color_positive=self.colors.positive,
                           rounding=self.rounding
                       ) + '}'
         styles = '<style>{styles_vars}{style_base}{style_header}{style_footer}{style_navigation}' \

@@ -17,6 +17,8 @@
 
 from adecty_design.markups.markups import MarkupsHtml
 from adecty_design.properties import Properties, Margin, Padding
+from adecty_design.widgets.text import Text
+from adecty_design.widgets.vector import Vector
 
 
 class ButtonType:
@@ -26,17 +28,20 @@ class ButtonType:
 
 class Button:
     type: str
-    name: str
-    value: str
+    url: str
+    icon: Vector
+    text: Text
     properties: Properties
 
     def __init__(self,
-                 url: str, name: str,
+                 url: str, text: str | Text,
+                 icon: Vector = None,
                  type: str = ButtonType.default,
                  properties: Properties = Properties()):
         self.type = type
         self.url = url
-        self.name = name
+        self.icon = icon if icon else None
+        self.text = text if not text.isalpha() else Text(text=text, properties=Properties(margin=Margin(left=6 if self.icon else 0)))
 
         if type == ButtonType.default:
             self.properties = Properties(
@@ -62,6 +67,9 @@ class Button:
             )
 
     def html_get(self, **kwargs):
+        text_html = self.text.html_get(**kwargs)
+        icon_html = self.icon.svg_get(height=10) if self.icon else ''
+
         if self.type == ButtonType.default:
             style = 'font-family: {font_css};' \
                     'font-weight: 600;' \
@@ -78,7 +86,7 @@ class Button:
                                                              padding=self.properties.padding.html_get(),
                                                              border_color=kwargs.get('colors').primary)
             button_html = MarkupsHtml.button_default
-            return button_html.format(url=self.url, name=self.name, style=style)
+            return button_html.format(url=self.url, icon_html=icon_html, text_html=text_html, style=style)
         elif self.type == ButtonType.chip:
             button_chip = MarkupsHtml.button_chip
             style = 'font-family: {font_css};' \
@@ -89,11 +97,14 @@ class Button:
                     'padding: {padding};' \
                     'cursor: pointer;' \
                     'border: 0;' \
-                    'border-radius: 100px;'.format(
+                    'border-radius: 100px;' \
+                    'display: flex;' \
+                    'width: fit-content;' \
+                    'align-items: center;'.format(
                 font_css=kwargs.get('font').css,
                 background_color=self.properties.background_color,
                 color=self.properties.text_color,
                 margin=self.properties.margin.html_get(),
                 padding=self.properties.padding.html_get(),
             )
-            return button_chip.format(url=self.url, icon='', name=self.name, style=style)
+            return button_chip.format(url=self.url, icon_html=icon_html, text_html=text_html, style=style)

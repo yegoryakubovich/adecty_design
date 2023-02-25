@@ -15,7 +15,7 @@
 }
 
 .navigation__desktop__item__icon {
-    fill: var(--background_secondary);
+    fill: var(--primary_secondary);
 }
 
 .navigation__desktop__item__icon__active {
@@ -49,5 +49,5 @@
 }
 
 .navigation__mobile__item__icon__active {
-    fill: var(--background_primary);
+    fill: var(--primary);
 }

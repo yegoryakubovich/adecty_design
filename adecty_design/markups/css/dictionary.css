@@ -1,6 +1,12 @@
 .dictionary {
     border-collapse: collapse;
-    width: 100vh;
+    width: fit-content;
     border-style: hidden;
     border-spacing: 0;
+    padding-top: 8px;
+}
+
+.dictionary__value {
+    padding-left: 16px;
+    padding-top: 6px;
 }
