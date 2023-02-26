@@ -21,12 +21,12 @@ from adecty_design.markups.markups import MarkupsHtml, MarkupsStyles, MarkupsScr
 from adecty_design.properties.colors import Colors
 from adecty_design.properties.font import Font
 from adecty_design.widgets.required import Navigation
-from adecty_design.widgets.vector import Vector
+from adecty_design.widgets.icon import Icon
 
 
 class Interface:
-    logo: Vector
-    logo_mini: Vector
+    logo: Icon
+    logo_mini: Icon
     name: str
     colors: Colors
     font: Font
@@ -36,7 +36,7 @@ class Interface:
     footer: Footer
 
     def __init__(self,
-                 logo: Vector, logo_mini: Vector, name: str, rounding: int,
+                 logo: Icon, logo_mini: Icon, name: str, rounding: int,
                  colors: Colors, font: Font, navigation: Navigation,
                  header: Header = None, footer: Footer = None, ):
         self.logo = logo

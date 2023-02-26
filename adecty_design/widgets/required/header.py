@@ -49,6 +49,11 @@ class Header:
                                                 for navigation_item in self.navigation_items])
 
         header_html = header_html.format(
-            logo=kwargs.get('logo').svg_get(height=24, class_name='header__logo'),
+            logo=kwargs.get('logo').html_get(
+                height=24,
+                class_name='header__logo',
+                color=False,
+                **kwargs,
+            ),
             items_html=header_navigation_items_html)
         return header_html

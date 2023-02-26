@@ -13,13 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+from types import NoneType
 
 from adecty_design.functions import properties_css_get
 from adecty_design.markups.markups import MarkupsHtml
 from adecty_design.properties import Margin, Padding, Color, Font
+from adecty_design.properties.color import ColorType
 from adecty_design.widgets.text import Text
-from adecty_design.widgets.vector import Vector
+from adecty_design.widgets.icon import Icon
 
 
 class ButtonType:
@@ -30,7 +31,7 @@ class ButtonType:
 class Button:
     type: str
     url: str
-    icon: Vector
+    icon: Icon
     text: Text | str
     margin: Margin
     padding: Padding
@@ -39,9 +40,9 @@ class Button:
     def __init__(
             self,
             url: str,
-            text: Text | str,
+            text: Text | str = None,
             type: str = None,
-            icon: Vector = None,
+            icon: Icon = None,
             margin: Margin = None,
             padding: Padding = None,
             color_background: Color = None,
@@ -58,12 +59,11 @@ class Button:
         if not self.type:
             self.type = ButtonType.default
 
-        if type(self.text) is str:
+        if type(self.text) in [str, NoneType]:
             self.text = Text(
                 text=self.text,
-                margin=Margin(left=6 if self.icon else 0),
+                margin=Margin(left=6 if self.icon and self.text else 0),
                 font=Font(
-                    color=kwargs.get('colors').text,
                     weight=700,
                 ),
             )
@@ -78,22 +78,33 @@ class Button:
             if self.type == ButtonType.default:
                 self.padding = Padding(horizontal=12, vertical=24)
             elif self.type == ButtonType.chip:
-                self.padding = Padding(horizontal=6, vertical=16)
+                self.padding = Padding(
+                    horizontal=6,
+                    right=16 if self.text.text else 8,
+                    left=16 if self.text.text else 0,
+                )
 
         if not self.color_background:
             if self.type == ButtonType.default:
-                self.color_background = Color(color=kwargs.get('colors').background)
+                self.color_background = Color(
+                    color=kwargs.get('colors').background,
+                )
             elif self.type == ButtonType.chip:
-                self.color_background = Color(color=kwargs.get('colors').background_secondary)
+                self.color_background = Color(
+                    color=kwargs.get('colors').background_secondary,
+                )
+
+        self.color_background.type = ColorType.background
 
         text_html = self.text.html_get(**kwargs)
-        icon_html = self.icon.svg_get(height=10) if self.icon else ''
+        icon_html = self.icon.html_get(height=10, **kwargs,) if self.icon else ''
 
         if self.type == ButtonType.default:
             properties_css = properties_css_get(
                 properties=[self.margin, self.padding, self.color_background],
                 properties_additional='cursor: pointer;border: 2px solid {border_color};'
-                                      'border-radius: var(--rounding);'.format(
+                                      'border-radius: var(--rounding);display: flex;'
+                                      'width: fit-content;align-items: center;'.format(
                     border_color=kwargs.get('colors').primary,
                 ),
             )

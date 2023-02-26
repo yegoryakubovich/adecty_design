@@ -17,6 +17,7 @@
 from adecty_design.functions import properties_css_get
 from adecty_design.markups.markups import MarkupsHtml
 from adecty_design.properties import Padding, Margin, Color
+from adecty_design.properties.color import ColorType
 
 
 class Card:
@@ -40,6 +41,8 @@ class Card:
     def html_get(self, **kwargs):
         if not self.color_background:
             self.color_background = Color(color=kwargs.get('colors').background)
+
+        self.color_background.type = ColorType.background
 
         widgets_html = ''.join([widget.html_get(**kwargs) for widget in self.widgets])
         properties_css = properties_css_get(

@@ -18,13 +18,18 @@
 from xml.etree import ElementTree
 from xml.etree.ElementTree import Element
 
+from adecty_design.functions import properties_css_get
+from adecty_design.properties import Color
+from adecty_design.properties.color import ColorType
 
-class Vector:
+
+class Icon:
     svg: Element
     width: int
     height: int
+    color: Color
 
-    def __init__(self, path: str):
+    def __init__(self, path: str, color: Color = None):
         ElementTree.register_namespace('', 'http://www.w3.org/2000/svg')
         self.svg = ElementTree.fromstring(open(path, "r").read())
         self.svg.set('fill', '')
@@ -32,10 +37,23 @@ class Vector:
             e.set('fill', '')
         self.width = int(self.svg.get('width'))
         self.height = int(self.svg.get('height'))
+        self.color = color
 
-    def svg_get(self, height: int, class_name: str = ''):
+    def html_get(self, height: int, class_name: str = '', color: Color = None, **kwargs):
+        if color:
+            self.color = color
+        self.color = Color(color=self.color.color if self.color else kwargs.get('colors').primary, type=ColorType.fill)
+
         svg_current = self.svg
         svg_current.set('width', str(int(self.width*height/self.height)))
         svg_current.set('height', str(int(height)))
         svg_current.set('class', class_name)
-        return ElementTree.tostring(svg_current, encoding='unicode')
+
+        properties_css = properties_css_get(properties=[self.color])
+        icon_html = ElementTree.tostring(svg_current, encoding='unicode').format(properties_css=properties_css)
+
+        if color is False:
+            return icon_html
+
+        icon_html = icon_html[:4] + ' ' + properties_css + icon_html[4:]
+        return icon_html

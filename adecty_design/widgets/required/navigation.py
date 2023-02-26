@@ -16,18 +16,19 @@
 
 
 from adecty_design.markups.markups import MarkupsHtml
-from adecty_design.properties import Font
+from adecty_design.properties import Font, Color
+from adecty_design.properties.color import ColorType
 from adecty_design.widgets.text import Text
-from adecty_design.widgets.vector import Vector
+from adecty_design.widgets.icon import Icon
 
 
 class NavigationItem:
     id: str
     name: str
     url: str
-    icon: Vector
+    icon: Icon
 
-    def __init__(self, id: str, name: str, url: str, icon: Vector = None):
+    def __init__(self, id: str, name: str, url: str, icon: Icon = None):
         self.id = id
         self.name = name
         self.url = url
@@ -44,9 +45,11 @@ class NavigationItem:
                 weight=600,
             ),
         ).html_get(**kwargs)
-        desktop_icon_html = self.icon.svg_get(
+        desktop_icon_html = self.icon.html_get(
             height=18,
             class_name='navigation__desktop__item__icon__active' if active else 'navigation__desktop__item__icon',
+            color=Color(color=colors.background if active else colors.primary_secondary, type=ColorType.fill),
+            **kwargs,
         )
         mobile_name_html = Text(
             text=self.name,
@@ -56,9 +59,10 @@ class NavigationItem:
                 weight=700,
             ),
         ).html_get(**kwargs)
-        mobile_icon_html = self.icon.svg_get(
+        mobile_icon_html = self.icon.html_get(
             height=28,
             class_name='navigation__mobile__item__icon__active' if active else 'navigation__mobile__item__icon',
+            color=Color(color=colors.primary if active else colors.background_secondary),
         )
 
         navigation_desktop_item = MarkupsHtml.navigation_desktop_item.format(

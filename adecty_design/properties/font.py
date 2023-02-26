@@ -42,9 +42,8 @@ class Font:
     def css_get(self, **kwargs):
         if not self.css:
             self.css = kwargs.get('font').css
-        if not self.color:
-            self.css = kwargs.get('colors').text
-
+        if self.color is None:
+            self.color = kwargs.get('colors').text
         font_css = 'font-family: {css};' \
                    'font-size: {size}px;' \
                    'font-weight: {weight};' \

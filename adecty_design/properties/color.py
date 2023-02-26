@@ -17,6 +17,7 @@
 class ColorType:
     text = 'text'
     background = 'background'
+    fill = 'fill'
 
 
 class Color:
@@ -32,7 +33,14 @@ class Color:
         self.type = type
 
     def css_get(self, **kwargs):
-        type = 'color' if self.color == ColorType.text else 'background-color'
+        type = 'color'
+        if self.type == ColorType.text:
+            type = 'color'
+        if self.type == ColorType.background:
+            type = 'background-color'
+        elif self.type == ColorType.fill:
+            type = 'fill'
+
         color = self.color if self.color else kwargs.get('colors').primary
 
         color_css = '{type}: {color};'.format(

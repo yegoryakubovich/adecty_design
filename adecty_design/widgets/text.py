@@ -46,7 +46,7 @@ class Text:
         properties_css = properties_css_get(properties=[self.font, self.margin, self.padding], **kwargs)
         text_html = MarkupsHtml.text.format(
             properties_css=properties_css,
-            text=self.text,
+            text=self.text if self.text else '',
         )
 
         return text_html
