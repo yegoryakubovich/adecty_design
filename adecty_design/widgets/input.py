@@ -23,11 +23,9 @@ class InputTypes:
 
 class Input:
     input_type: str
-    kwargs: dict
 
-    def __init__(self, input_type: str, **kwargs):
+    def __init__(self, input_type: str):
         self.input_type = input_type
-        self.kwargs = kwargs
 
     def html_get(self, **kwargs):
         if self.input_type == InputTypes.text:
@@ -43,8 +41,8 @@ class Input:
 
             input_html = '<input {styles} type="text" name="{name}" value="{value}">'.format(
                 styles=styles,
-                name=self.kwargs['name'],
-                value=self.kwargs['value'] if 'value' in self.kwargs.keys() else '',
+                name=kwargs['name'],
+                value=kwargs['value'] if 'value' in kwargs.keys() else '',
             )
         elif self.input_type == InputTypes.button:
             styles = 'style="' \
@@ -62,10 +60,10 @@ class Input:
                                                                border_color=kwargs.get('colors').primary)
 
             input_html = '<input {styles} type="submit" value="{text}">'.format(
-                styles=styles, text=self.kwargs['text']
+                styles=styles, text=kwargs['text']
             )
         elif self.input_type == InputTypes.file:
-            input_html = '<input type="file" name="{name}">'.format(name=self.kwargs['name'],)
+            input_html = '<input type="file" name="{name}">'.format(name=kwargs['name'],)
         else:
             return ''
         return input_html

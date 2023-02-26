@@ -18,4 +18,9 @@ from adecty_design.properties import Margin
 
 
 class Padding(Margin):
-    pass
+    def css_get(self, **kwargs):
+        values = self.values_get()
+        padding_css = 'padding: {values};'.format(
+            values=values,
+        )
+        return padding_css

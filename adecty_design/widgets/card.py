@@ -14,32 +14,42 @@
 # limitations under the License.
 
 
+from adecty_design.functions import properties_css_get
 from adecty_design.markups.markups import MarkupsHtml
-from adecty_design.properties import Properties, Padding
+from adecty_design.properties import Padding, Margin, Color
 
 
 class Card:
-    properties: Properties
     widgets: list
+    margin: Margin
+    padding: Padding
+    color_background: Color
 
-    def __init__(self, widgets: list, properties: Properties = Properties(padding=Padding(horizontal=12, vertical=12))):
-        self.properties = Properties(
-            margin=properties.margin,
-            padding=properties.padding if not properties.padding.is_empty() else
-            Padding(horizontal=12, vertical=12),
-            background_color=properties.background_color if properties.background_color else
-            'var(--background)',
-            text_color=properties.text_color if properties.text_color else
-            'var(--text)',
-        )
+    def __init__(
+            self,
+            widgets: list,
+            margin: Margin = Margin(),
+            padding: Padding = Padding(horizontal=12, vertical=12),
+            color_background: Color = None,
+    ):
         self.widgets = widgets
+        self.margin = margin
+        self.padding = padding
+        self.color_background = color_background
 
     def html_get(self, **kwargs):
+        if not self.color_background:
+            self.color_background = Color(color=kwargs.get('colors').background)
+
         widgets_html = ''.join([widget.html_get(**kwargs) for widget in self.widgets])
-        properties = self.properties.html_get()
+        properties_css = properties_css_get(
+            properties=[self.margin, self.padding, self.color_background],
+            properties_additional='box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);border-radius: var(--rounding);',
+            **kwargs,
+        )
 
         card_html = MarkupsHtml.card.format(
-            properties=properties,
+            properties_css=properties_css,
             widgets_html=widgets_html,
         )
         return card_html

@@ -15,18 +15,13 @@
 #
 
 
-from adecty_design.functions import widgets_html_get
-from adecty_design.markups.markups import MarkupsHtml
+def properties_css_get(properties: list | tuple | set, properties_additional=None, **kwargs):
+    styles = [propertie.css_get(**kwargs) for propertie in properties]
+    if properties_additional:
+        styles.append(properties_additional)
+    styles = ''.join(styles)
 
-
-class Form:
-    widgets: list
-
-    def __init__(self, widgets: list):
-        self.widgets = widgets
-
-    def html_get(self, **kwargs):
-        widgets_html = widgets_html_get(widgets=self.widgets, **kwargs)
-
-        form_html = MarkupsHtml.form.format(widgets_html=widgets_html)
-        return form_html
+    properties_css = 'style="{styles}"'.format(
+        styles=styles,
+    )
+    return properties_css

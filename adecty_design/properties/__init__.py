@@ -15,18 +15,15 @@
 #
 
 
-from adecty_design.functions import widgets_html_get
-from adecty_design.markups.markups import MarkupsHtml
+from adecty_design.properties.color import Color
+from adecty_design.properties.margin import Margin
+from adecty_design.properties.padding import Padding
+from adecty_design.properties.font import Font
 
 
-class Form:
-    widgets: list
-
-    def __init__(self, widgets: list):
-        self.widgets = widgets
-
-    def html_get(self, **kwargs):
-        widgets_html = widgets_html_get(widgets=self.widgets, **kwargs)
-
-        form_html = MarkupsHtml.form.format(widgets_html=widgets_html)
-        return form_html
+__all__ = (
+    'Margin',
+    'Padding',
+    'Font',
+    'Color',
+)

@@ -15,6 +15,9 @@
 #
 
 
+# FIXME
+
+
 from adecty_design.widgets.text import Text
 
 
@@ -32,7 +35,7 @@ class Table:
         columns_html = ''
         for column in self.columns:
             column_element_html = Text(text=column, color=kwargs.get('colors').background).html_get(**kwargs) \
-                if type(column) is str else column.html_get(**kwargs)
+                if type(column) is str else column.css_get(**kwargs)
             columns_html += '<th>{column_element}</th>'.format(column_element=column_element_html)
 
         rows_html = ''
@@ -41,11 +44,11 @@ class Table:
             for element in row:
                 row_element_html = ''
                 if type(element) is list:
-                    row_element_html += ''.join([e.html_get(**kwargs) for e in element])
+                    row_element_html += ''.join([e.css_get(**kwargs) for e in element])
                 elif type(element) is str:
                     row_element_html += Text(text=element).html_get(**kwargs)
                 else:
-                    row_element_html += element.html_get(**kwargs)
+                    row_element_html += element.css_get(**kwargs)
                 row_html += '<td>{row_element}</td>'.format(row_element=row_element_html)
             rows_html += '<tr>{row}</tr>'.format(row=row_html)
 

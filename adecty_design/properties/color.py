@@ -12,21 +12,31 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 
-from adecty_design.functions import widgets_html_get
-from adecty_design.markups.markups import MarkupsHtml
+class ColorType:
+    text = 'text'
+    background = 'background'
 
 
-class Form:
-    widgets: list
+class Color:
+    color: str
+    type: str
 
-    def __init__(self, widgets: list):
-        self.widgets = widgets
+    def __init__(
+            self,
+            color: str = None,
+            type: str = None,
+    ):
+        self.color = color
+        self.type = type
 
-    def html_get(self, **kwargs):
-        widgets_html = widgets_html_get(widgets=self.widgets, **kwargs)
+    def css_get(self, **kwargs):
+        type = 'color' if self.color == ColorType.text else 'background-color'
+        color = self.color if self.color else kwargs.get('colors').primary
 
-        form_html = MarkupsHtml.form.format(widgets_html=widgets_html)
-        return form_html
+        color_css = '{type}: {color};'.format(
+            type=type,
+            color=color,
+        )
+        return color_css

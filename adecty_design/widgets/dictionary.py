@@ -15,19 +15,32 @@
 #
 
 
+from adecty_design.functions import properties_css_get
+from adecty_design.properties import Margin, Padding
 from adecty_design.widgets.text import Text
 
 
 class Dictionary:
     keys: list
     values: list
+    margin: Margin
+    padding: Padding
 
-    def __init__(self, keys: list, values: list):
+    def __init__(
+            self,
+            keys: list,
+            values: list,
+            margin: Margin = Margin(),
+            padding: Padding = Padding(),
+    ):
         self.keys = keys
         self.values = values
+        self.margin = margin
+        self.padding = padding
 
     def html_get(self, **kwargs):
-        dictionary_html = '<table class="dictionary">{rows_html}</table>'
+        properties_css = properties_css_get(properties=[self.margin, self.padding])
+        dictionary_html = '<table class="dictionary" {properties_css}>{rows_html}</table>'
 
         rows_html = ''
         for i in range(len(self.keys)):
@@ -35,9 +48,9 @@ class Dictionary:
             value = self.values[i]
 
             key_html = Text(text=key).html_get(**kwargs) \
-                if type(key) is str else key.html_get(**kwargs)
+                if type(key) is str else key.css_get(**kwargs)
             value_html = Text(text=value).html_get(**kwargs) \
-                if type(value) is str else value.html_get(**kwargs)
+                if type(value) is str else value.css_get(**kwargs)
 
             rows_html += '<tr>' \
                          '<td class="dictionary__key">{key_html}</td><td class="dictionary__value">{value_html}</td>' \
@@ -46,4 +59,4 @@ class Dictionary:
                 value_html=value_html,
             )
 
-        return dictionary_html.format(rows_html=rows_html)
+        return dictionary_html.format(rows_html=rows_html, properties_css=properties_css)

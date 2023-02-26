@@ -15,7 +15,11 @@
 #
 
 
+from adecty_design.functions import properties_css_get
+from adecty_design.functions import widgets_html_get
 from adecty_design.markups.markups import MarkupsHtml
+from adecty_design.properties.margin import Margin
+from adecty_design.properties.padding import Padding
 
 
 class ViewType:
@@ -26,18 +30,34 @@ class ViewType:
 class View:
     widgets: list
     type: str
+    margin: Margin
+    padding: Padding
 
-    def __init__(self, widgets: list, type: str = ViewType.vertical):
+    def __init__(
+            self,
+            widgets: list,
+            type: str = ViewType.vertical,
+            margin: Margin = Margin(),
+            padding: Padding = Padding(),
+    ):
         self.widgets = widgets
         self.type = type
+        self.margin = margin
+        self.padding = padding
 
     def html_get(self, **kwargs):
-        view_html = MarkupsHtml.view_vertical
-        if self.type == ViewType.horizontal:
+        properties_css = properties_css_get(properties=[self.margin, self.padding])
+        widgets_html = widgets_html_get(widgets=self.widgets, **kwargs)
+
+        if self.type == ViewType.vertical:
+            view_html = MarkupsHtml.view_vertical
+            return view_html.format(
+                properties_css=properties_css,
+                widgets_html=widgets_html,
+            )
+        elif self.type == ViewType.horizontal:
             view_html = MarkupsHtml.view_horizontal
-
-        widgets_html = ''.join([widget.html_get(**kwargs) for widget in self.widgets])
-
-        return view_html.format(
-            widgets_html=widgets_html,
-        )
+            return view_html.format(
+                properties_css=properties_css,
+                widgets_html=widgets_html,
+            )

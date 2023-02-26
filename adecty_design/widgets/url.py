@@ -15,16 +15,25 @@
 #
 
 
+from adecty_design.functions import properties_css_get, widgets_html_get
+
+
 class Url:
     url: str
-    elements: list
+    widgets: list
 
-    def __init__(self, url: str, elements: list):
+    def __init__(self, url: str, widgets: list):
         self.url = url
-        self.elements = elements
+        self.widgets = widgets
 
     def html_get(self, **kwargs):
-        url_html = '<a href="{url}">{elements_html}</a>'
-        elements_html = ''.join([element.html_get(**kwargs) for element in self.elements])
+        properties_css = properties_css_get(properties=[])
+        widgets_html = widgets_html_get(widgets=self.widgets, **kwargs)
 
-        return url_html.format(url=self.url, elements_html=elements_html)
+        url_html = '<a {properties_css} href="{url}">{widgets_html}</a>'.format(
+            properties_css=properties_css,
+            widgets_html=widgets_html,
+            url=self.url,
+        )
+
+        return url_html

@@ -15,12 +15,12 @@
 #
 
 
-from adecty_design.widgets.header import Header
-from adecty_design.widgets.footer import Footer
+from adecty_design.widgets.required.header import Header
+from adecty_design.widgets.required import Footer
 from adecty_design.markups.markups import MarkupsHtml, MarkupsStyles, MarkupsScripts
-from adecty_design.colors import Colors
-from adecty_design.font import Font
-from adecty_design.widgets.navigation import Navigation
+from adecty_design.properties.colors import Colors
+from adecty_design.properties.font import Font
+from adecty_design.widgets.required import Navigation
 from adecty_design.widgets.vector import Vector
 
 

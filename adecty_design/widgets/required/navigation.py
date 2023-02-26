@@ -16,6 +16,7 @@
 
 
 from adecty_design.markups.markups import MarkupsHtml
+from adecty_design.properties import Font
 from adecty_design.widgets.text import Text
 from adecty_design.widgets.vector import Vector
 
@@ -37,9 +38,11 @@ class NavigationItem:
 
         desktop_name_html = Text(
             text=self.name,
-            color=colors.background if active else colors.primary_secondary,
-            font_size=18,
-            font_weight=600,
+            font=Font(
+                color=colors.background if active else colors.primary_secondary,
+                size=18,
+                weight=600,
+            ),
         ).html_get(**kwargs)
         desktop_icon_html = self.icon.svg_get(
             height=18,
@@ -47,9 +50,11 @@ class NavigationItem:
         )
         mobile_name_html = Text(
             text=self.name,
-            color=colors.primary if active else colors.background_secondary,
-            font_size=10,
-            font_weight=700,
+            font=Font(
+                color=colors.primary if active else colors.background_secondary,
+                size=10,
+                weight=700,
+            ),
         ).html_get(**kwargs)
         mobile_icon_html = self.icon.svg_get(
             height=28,

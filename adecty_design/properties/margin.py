@@ -37,7 +37,7 @@ class Margin:
         self.horizontal = horizontal
         self.vertical = vertical
 
-    def html_get(self):
+    def values_get(self):
         top = '0'
         down = '0'
         left = '0'
@@ -65,6 +65,13 @@ class Margin:
             left=left,
             right=right,
         )
+
+    def css_get(self, **kwargs):
+        values = self.values_get()
+        margin_css = 'margin: {values};'.format(
+            values=values,
+        )
+        return margin_css
 
     def is_empty(self):
         if not self.horizontal and not self.vertical and \

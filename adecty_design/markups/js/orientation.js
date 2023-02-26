@@ -17,6 +17,9 @@ function orientation_update() {
     var header_height = document.getElementById('header').offsetHeight;
     document.getElementById('container').style.marginTop=header_height+"px";
 
+    var footer_height = document.getElementById('footer').offsetHeight;
+    document.getElementById('widgets').style.marginBottom=footer_height+"px";
+
     var navigation_desktop_width = document.getElementById('navigation__desktop').offsetWidth;
     document.getElementById('widgets').style.marginLeft=navigation_desktop_width+"px";
 }

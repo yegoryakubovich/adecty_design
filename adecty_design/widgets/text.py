@@ -15,55 +15,38 @@
 #
 
 
-from adecty_design.font import Font
+from adecty_design.functions import properties_css_get
+from adecty_design.properties.font import Font
 from adecty_design.markups.markups import MarkupsHtml
-from adecty_design.properties import Properties
-
-
-class TextType:
-    vertical = 'VERTICAL'
-    horizontal = 'HORIZONTAL'
+from adecty_design.properties import Margin, Padding
 
 
 class Text:
-    width: int
-    height: int
     font: Font
     color: str
     text: str
     font_size: int
     font_weight: int
-    properties: Properties
+    margin: Margin
+    padding: Padding
 
-    def __init__(self, text: str, font: Font = None, color: str = None,
-                 width: int = 100, height: int = 100,
-                 font_size: int = 12, font_weight: int = 600,
-                 properties: Properties = Properties()):
-        self.width = width
-        self.height = height
-        self.font = font
-        self.color = color
+    def __init__(
+            self,
+            text: str,
+            font: Font = Font(),
+            margin: Margin = Margin(),
+            padding: Padding = Padding(),
+    ):
         self.text = text
-        self.font_size = font_size
-        self.font_weight = font_weight
-        self.properties = properties
+        self.font = font
+        self.margin = margin
+        self.padding = padding
 
     def html_get(self, **kwargs):
-        font = kwargs.get('font') if not self.font else self.font
-        color = kwargs.get('colors').text if not self.color else self.color
-
-        styles = 'style="' \
-                 'margin: {margin};' \
-                 'font-family: {font_css};' \
-                 'font-size: {font_size}px;' \
-                 'font-weight: {font_weight};' \
-                 'color: {color};"'.format(
-            margin=self.properties.margin.html_get(),
-            font_css=font.css,
-            font_size=self.font_size,
-            font_weight=self.font_weight,
-            color=color,
+        properties_css = properties_css_get(properties=[self.font, self.margin, self.padding], **kwargs)
+        text_html = MarkupsHtml.text.format(
+            properties_css=properties_css,
+            text=self.text,
         )
 
-        text_html = MarkupsHtml.text.format(text=self.text, styles=styles)
         return text_html

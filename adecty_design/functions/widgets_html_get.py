@@ -15,12 +15,6 @@
 #
 
 
-class Font:
-    html_init: str
-    css_init: str
-    css: str
-
-    def __init__(self, html_init: str, css_init: str, css: str):
-        self.html_init = html_init
-        self.css_init = css_init
-        self.css = css
+def widgets_html_get(widgets: list | tuple | set, **kwargs):
+    widgets_html = ''.join([widget.html_get(**kwargs) for widget in widgets])
+    return widgets_html
