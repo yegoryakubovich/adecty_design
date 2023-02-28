@@ -15,8 +15,8 @@
 #
 
 
-def properties_css_get(properties: list | tuple | set, properties_additional=None, **kwargs):
-    styles = [propertie.css_get(**kwargs) for propertie in properties]
+def properties_css_get(properties: list | tuple | set = [], properties_additional=None, **kwargs):
+    styles = [property.css_get(**kwargs) for property in properties]
     if properties_additional:
         styles.append(properties_additional)
     styles = ''.join(styles)

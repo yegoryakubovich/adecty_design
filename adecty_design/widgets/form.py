@@ -15,8 +15,10 @@
 #
 
 
-from adecty_design.functions import widgets_html_get
-from adecty_design.markups.markups import MarkupsHtml
+from adecty_design.functions import widgets_html_get, properties_css_get
+
+
+FORM_HTML = '<form method="get" {properties_css} enctype="multipart/form-data">{widgets_html}</form>'
 
 
 class Form:
@@ -26,7 +28,11 @@ class Form:
         self.widgets = widgets
 
     def html_get(self, **kwargs):
+        properties_css = properties_css_get(properties=[], properties_additional='', **kwargs)
         widgets_html = widgets_html_get(widgets=self.widgets, **kwargs)
 
-        form_html = MarkupsHtml.form.format(widgets_html=widgets_html)
+        form_html = FORM_HTML.format(
+            properties_css=properties_css,
+            widgets_html=widgets_html,
+        )
         return form_html

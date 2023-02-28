@@ -53,7 +53,6 @@ class MarkupsHtml:
     button_chip = html_get('button/chip')
 
     container = html_get('container')
-    form = html_get('form')
     card = html_get('card')
 
 

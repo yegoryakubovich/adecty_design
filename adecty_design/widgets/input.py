@@ -22,15 +22,19 @@ class InputTypes:
 
 
 class Input:
-    input_type: str
+    type: str
+    name: str
+    value: str
 
-    def __init__(self, input_type: str):
-        self.input_type = input_type
+    def __init__(self, type: str, name: str = None, value: str = None):
+        self.type = type
+        self.name = name
+        self.value = value
 
     def html_get(self, **kwargs):
-        if self.input_type == InputTypes.text:
+        if self.type == InputTypes.text:
             styles = 'style="' \
-                     'width: 100vh;' \
+                     'width: 100%;' \
                      'margin: 8px 0;' \
                      'padding: 12px 18px;' \
                      'box-sizing: border-box;' \
@@ -41,10 +45,10 @@ class Input:
 
             input_html = '<input {styles} type="text" name="{name}" value="{value}">'.format(
                 styles=styles,
-                name=kwargs['name'],
-                value=kwargs['value'] if 'value' in kwargs.keys() else '',
+                name=self.name,
+                value=self.value if self.value else '',
             )
-        elif self.input_type == InputTypes.button:
+        elif self.type == InputTypes.button:
             styles = 'style="' \
                      'font-family: {font_css};' \
                      'font-weight: 600;' \
@@ -62,7 +66,7 @@ class Input:
             input_html = '<input {styles} type="submit" value="{text}">'.format(
                 styles=styles, text=kwargs['text']
             )
-        elif self.input_type == InputTypes.file:
+        elif self.type == InputTypes.file:
             input_html = '<input type="file" name="{name}">'.format(name=kwargs['name'],)
         else:
             return ''

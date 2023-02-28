@@ -72,7 +72,7 @@ class Button:
             if self.type == ButtonType.default:
                 self.margin = Margin(horizontal=8)
             elif self.type == ButtonType.chip:
-                self.margin = Margin()
+                self.margin = Margin(right=8)
 
         if not self.padding:
             if self.type == ButtonType.default:
