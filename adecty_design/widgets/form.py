@@ -18,7 +18,7 @@
 from adecty_design.functions import widgets_html_get, properties_css_get
 
 
-FORM_HTML = '<form method="get" {properties_css} enctype="multipart/form-data">{widgets_html}</form>'
+FORM_HTML = '<form method="post" {properties_css} enctype="multipart/form-data">{widgets_html}</form>'
 
 
 class Form:

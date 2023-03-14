@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
 from types import NoneType
 
 from adecty_design.functions import properties_css_get
@@ -70,7 +72,7 @@ class Button:
 
         if not self.margin:
             if self.type == ButtonType.default:
-                self.margin = Margin(horizontal=8)
+                self.margin = Margin(horizontal=0)
             elif self.type == ButtonType.chip:
                 self.margin = Margin(right=8)
 
