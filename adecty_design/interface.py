@@ -118,7 +118,7 @@ class Interface:
             style_table=MarkupsStyles.table,
             style_dictionary=MarkupsStyles.dictionary,
             style_orientation=MarkupsStyles.orientation,
-            style_view=MarkupsStyles.view,
+            style_view=MarkupsStyles.input_file,
         )
         return html.format(fonts=fonts, styles=styles)
 

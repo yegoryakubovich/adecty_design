@@ -44,9 +44,6 @@ class MarkupsHtml:
     navigation_desktop = html_get('navigation_desktop')
     navigation_desktop_item = html_get('navigation_desktop_item')
 
-    view_vertical = html_get('view/vertical')
-    view_horizontal = html_get('view/horizontal')
-
     text = html_get('text')
 
     button_default = html_get('button/default')
@@ -64,7 +61,7 @@ class MarkupsStyles:
 
     navigation = css_get('navigation')
 
-    view = css_get('view')
+    input_file = css_get('input_file')
 
     table = css_get('table')
     dictionary = css_get('dictionary')

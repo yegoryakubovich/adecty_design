@@ -120,7 +120,7 @@ class InputFile:
             self,
             id: str,
             margin: Margin = Margin(right=24, ),
-            padding: Padding = Padding(horizontal=12, vertical=12),
+            padding: Padding = Padding(horizontal=2, vertical=2),
     ):
         self.id = id
         self.margin = margin

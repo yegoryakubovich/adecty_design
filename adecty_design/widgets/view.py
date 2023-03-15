@@ -22,6 +22,9 @@ from adecty_design.properties.margin import Margin
 from adecty_design.properties.padding import Padding
 
 
+VIEW_HTML = '<div class="view" {properties_css}>{widgets_html}</div>'
+
+
 class ViewType:
     vertical = 'vertical'
     horizontal = 'horizontal'
@@ -46,18 +49,22 @@ class View:
         self.padding = padding
 
     def html_get(self, **kwargs):
-        properties_css = properties_css_get(properties=[self.margin, self.padding])
         widgets_html = widgets_html_get(widgets=self.widgets, **kwargs)
 
         if self.type == ViewType.vertical:
-            view_html = MarkupsHtml.view_vertical
-            return view_html.format(
+            properties_css = properties_css_get(
+                properties=[self.margin, self.padding],
+            )
+            return VIEW_HTML.format(
                 properties_css=properties_css,
                 widgets_html=widgets_html,
             )
         elif self.type == ViewType.horizontal:
-            view_html = MarkupsHtml.view_horizontal
-            return view_html.format(
+            properties_css = properties_css_get(
+                properties=[self.margin, self.padding],
+                properties_additional='display: flex;flex-wrap: wrap;',
+            )
+            return VIEW_HTML.format(
                 properties_css=properties_css,
                 widgets_html=widgets_html,
             )
