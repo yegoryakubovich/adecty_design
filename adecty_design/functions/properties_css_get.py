@@ -1,5 +1,5 @@
 #
-# (c) 2022, Yegor Yakubovich
+# (c) 2023, Yegor Yakubovich
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 #
 
 
-def properties_css_get(properties: list | tuple | set = [], properties_additional=None, **kwargs):
-    styles = [property.css_get(**kwargs) for property in properties]
+def properties_css_get(properties: list | tuple | set = (), properties_additional=None, **kwargs):
+    styles = [p.css_get(**kwargs) for p in properties]
     if properties_additional:
         styles.append(properties_additional)
     styles = ''.join(styles)

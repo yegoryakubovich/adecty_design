@@ -1,5 +1,5 @@
 #
-# (c) 2022, Yegor Yakubovich
+# (c) 2023, Yegor Yakubovich
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ class Card:
 
     def html_get(self, **kwargs):
         if not self.color_background:
-            self.color_background = Color(color=kwargs.get('colors').background)
+            self.color_background = Color(color=kwargs.get('colors').background.color)
 
         self.color_background.type = ColorType.background
 

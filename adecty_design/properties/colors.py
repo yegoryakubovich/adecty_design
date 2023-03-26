@@ -1,5 +1,5 @@
 #
-# (c) 2022, Yegor Yakubovich
+# (c) 2023, Yegor Yakubovich
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,28 +15,31 @@
 #
 
 
+from adecty_design.properties import Color
+
+
 class Colors:
 
-    background: str
-    background_secondary: str
-    primary: str
-    primary_secondary: str
-    text: str
-    selected: str
-    unselected: str
-    negative: str
-    positive: str
+    background: Color
+    background_secondary: Color
+    primary: Color
+    primary_secondary: Color
+    text: Color
+    selected: Color
+    unselected: Color
+    negative: Color
+    positive: Color
 
     def __init__(self,
-                 background: str,
-                 background_secondary: str,
-                 primary: str,
-                 primary_secondary: str,
-                 text: str,
-                 selected: str,
-                 unselected: str,
-                 negative: str,
-                 positive: str):
+                 background: str | Color,
+                 background_secondary: str | Color,
+                 primary: str | Color,
+                 primary_secondary: str | Color,
+                 text: str | Color,
+                 selected: str | Color,
+                 unselected: str | Color,
+                 negative: str | Color,
+                 positive: str | Color):
 
         """
         :param background: Application background color, will also be used as default text color on elements where
@@ -50,12 +53,12 @@ class Colors:
         :param negative: For error window or text with an error
         """
 
-        self.background = background
-        self.background_secondary = background_secondary
-        self.primary = primary
-        self.primary_secondary = primary_secondary
-        self.text = text
-        self.selected = selected
-        self.unselected = unselected
-        self.negative = negative
-        self.positive = positive
+        self.background = background if background is Color else Color(color=background)
+        self.background_secondary = background_secondary if background_secondary is Color else Color(color=background_secondary)
+        self.primary = primary if primary is Color else Color(color=primary)
+        self.primary_secondary = primary_secondary if primary_secondary is Color else Color(color=primary_secondary)
+        self.text = text if text is Color else Color(color=text)
+        self.selected = selected if selected is Color else Color(color=selected)
+        self.unselected = unselected if unselected is Color else Color(color=unselected)
+        self.negative = negative if negative is Color else Color(color=negative)
+        self.positive = positive if positive is Color else Color(color=positive)

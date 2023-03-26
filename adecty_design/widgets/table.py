@@ -1,5 +1,5 @@
 #
-# (c) 2022, Yegor Yakubovich
+# (c) 2023, Yegor Yakubovich
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ class Table:
 
         columns_html = ''
         for column in self.columns:
-            column_element_html = Text(text=column, color=kwargs.get('colors').background).html_get(**kwargs) \
+            column_element_html = Text(text=column, color=kwargs.get('colors').background.color).html_get(**kwargs) \
                 if type(column) is str else column.css_get(**kwargs)
             columns_html += '<th>{column_element}</th>'.format(column_element=column_element_html)
 

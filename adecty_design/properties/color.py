@@ -1,5 +1,5 @@
 #
-# (c) 2022, Yegor Yakubovich
+# (c) 2023, Yegor Yakubovich
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ class Color:
         elif self.type == ColorType.fill:
             type = 'fill'
 
-        color = self.color if self.color else kwargs.get('colors').primary
+        color = self.color if self.color else kwargs.get('colors').primary.color
 
         color_css = '{type}: {color};'.format(
             type=type,

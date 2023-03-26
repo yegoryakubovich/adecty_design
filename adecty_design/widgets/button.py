@@ -1,5 +1,5 @@
 #
-# (c) 2022, Yegor Yakubovich
+# (c) 2023, Yegor Yakubovich
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -89,11 +89,11 @@ class Button:
         if not self.color_background:
             if self.type == ButtonType.default:
                 self.color_background = Color(
-                    color=kwargs.get('colors').background,
+                    color=kwargs.get('colors').background.color,
                 )
             elif self.type == ButtonType.chip:
                 self.color_background = Color(
-                    color=kwargs.get('colors').background_secondary,
+                    color=kwargs.get('colors').background_secondary.color,
                 )
 
         self.color_background.type = ColorType.background
@@ -107,7 +107,7 @@ class Button:
                 properties_additional='cursor: pointer;border: 2px solid {border_color};'
                                       'border-radius: var(--rounding);display: flex;'
                                       'width: fit-content;align-items: center;'.format(
-                    border_color=kwargs.get('colors').primary,
+                    border_color=kwargs.get('colors').primary.color,
                 ),
             )
             button_html = MarkupsHtml.button_default.format(

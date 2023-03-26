@@ -1,5 +1,5 @@
 #
-# (c) 2022, Yegor Yakubovich
+# (c) 2023, Yegor Yakubovich
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,7 +43,10 @@ class Text:
         self.padding = padding
 
     def html_get(self, **kwargs):
-        properties_css = properties_css_get(properties=[self.font, self.margin, self.padding], **kwargs)
+        properties_css = properties_css_get(
+            properties=[self.font, self.margin, self.padding],
+            properties_additional='align-self: center;', **kwargs,
+        )
         text_html = MarkupsHtml.text.format(
             properties_css=properties_css,
             text=self.text if self.text else '',

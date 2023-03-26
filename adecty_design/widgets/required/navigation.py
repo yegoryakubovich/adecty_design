@@ -1,5 +1,5 @@
 #
-# (c) 2022, Yegor Yakubovich
+# (c) 2023, Yegor Yakubovich
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -86,6 +86,9 @@ class Navigation:
         self.items = items
 
     def html_get(self, active: str, **kwargs):
+        if not self.items:
+            return '', ''
+
         navigation_desktop_items_html, navigation_mobile_items_html = '', ''
         for item in self.items:
             navigation_desktop_item_html, navigation_mobile_item_html = item.html_get(

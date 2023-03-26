@@ -1,5 +1,5 @@
 #
-# (c) 2022, Yegor Yakubovich
+# (c) 2023, Yegor Yakubovich
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ from adecty_design.properties.colors import Colors
 from adecty_design.properties.font import Font
 from adecty_design.widgets.required import Navigation
 from adecty_design.widgets.icon import Icon
+import adecty_design.widgets as widgets_list
 
 
 class Interface:
@@ -49,7 +50,7 @@ class Interface:
         self.header = header
         self.footer = footer
 
-    def html_get(self, widgets: list | tuple, active: str):
+    def html_get(self, widgets: list | tuple, active: str = '', navigation: Navigation = None):
         kwargs = {
             'logo': self.logo,
             'logo_mini': self.logo_mini,
@@ -58,12 +59,15 @@ class Interface:
             'font': self.font,
         }
 
-        navigation_desktop_html, navigation_mobile_html = self.navigation.html_get(active=active, **kwargs)
+        navigation_desktop_html, navigation_mobile_html = navigation.html_get(active=active, **kwargs) \
+            if navigation else self.navigation.html_get(active=active, **kwargs)
 
         header_html = self.header.html_get(**kwargs)
         footer_html = self.footer.html_get(**kwargs, navigation_mobile_html=navigation_mobile_html)
-
-        widgets_html = ''.join([widget.html_get(**kwargs) for widget in widgets])
+        widgets_html = ''.join([
+            widget.html_get(**kwargs) if type(widget).__name__ in widgets_list.__all__
+            else '' for widget in widgets]
+        )
         config_html = self.config_html_get()
 
         scripts_js = self.scripts_js_get()
@@ -96,16 +100,16 @@ class Interface:
                       '--negative: {color_negative};' \
                       '--positive: {color_positive};' \
                       '--rounding: {rounding}px;'.format(
-                          color_background=self.colors.background,
-                          color_background_secondary=self.colors.background_secondary,
-                          color_primary=self.colors.primary,
-                          color_primary_secondary=self.colors.primary_secondary,
-                          color_text=self.colors.text,
-                          color_selected=self.colors.selected,
-                          color_unselected=self.colors.unselected,
-                          color_negative=self.colors.negative,
-                          color_positive=self.colors.positive,
-                          rounding=self.rounding
+                          color_background=self.colors.background.color,
+                          color_background_secondary=self.colors.background_secondary.color,
+                          color_primary=self.colors.primary.color,
+                          color_primary_secondary=self.colors.primary_secondary.color,
+                          color_text=self.colors.text.color,
+                          color_selected=self.colors.selected.color,
+                          color_unselected=self.colors.unselected.color,
+                          color_negative=self.colors.negative.color,
+                          color_positive=self.colors.positive.color,
+                          rounding=self.rounding,
                       ) + '}'
         styles = '<style>{styles_vars}{style_base}{style_header}{style_footer}{style_navigation}' \
                  '{style_table}{style_dictionary}{style_orientation}{style_view}</style>'

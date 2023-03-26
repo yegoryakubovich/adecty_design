@@ -1,5 +1,5 @@
 #
-# (c) 2022, Yegor Yakubovich
+# (c) 2023, Yegor Yakubovich
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,13 +15,16 @@
 #
 
 
+from adecty_design.properties import Color
+
+
 class Font:
     html_init: str
     css_init: str
     css: str
     size: int
     weight: int
-    color: str
+    color: Color
 
     def __init__(
             self,
@@ -30,7 +33,7 @@ class Font:
             css: str = None,
             size: int = 12,
             weight: int = 600,
-            color: str = None,
+            color: Color = None,
     ):
         self.html_init = html_init
         self.css_init = css_init
@@ -51,7 +54,7 @@ class Font:
             css=self.css,
             size=self.size,
             weight=self.weight,
-            color=self.color,
+            color=self.color.color,
         )
 
         return font_css

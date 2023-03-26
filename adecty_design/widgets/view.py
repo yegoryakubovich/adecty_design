@@ -1,5 +1,5 @@
 #
-# (c) 2022, Yegor Yakubovich
+# (c) 2023, Yegor Yakubovich
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 
 from adecty_design.functions import properties_css_get
 from adecty_design.functions import widgets_html_get
-from adecty_design.markups.markups import MarkupsHtml
 from adecty_design.properties.margin import Margin
 from adecty_design.properties.padding import Padding
 

@@ -1,5 +1,5 @@
 #
-# (c) 2022, Yegor Yakubovich
+# (c) 2023, Yegor Yakubovich
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ class InputText:
     value: str
     margin: Margin
     padding: Padding
+    is_password: bool
 
     def __init__(
             self,
@@ -31,11 +32,13 @@ class InputText:
             value: str = None,
             margin: Margin = Margin(horizontal=8, ),
             padding: Padding = Padding(horizontal=12, vertical=12),
+            is_password: bool = False,
     ):
         self.id = id
         self.value = value
         self.margin = margin
         self.padding = padding
+        self.is_password = is_password
 
     def html_get(self, **kwargs):
         properties_css = properties_css_get(
@@ -46,14 +49,15 @@ class InputText:
             properties_additional='width: 100%;box-sizing: border-box;border: 2px solid {color_border};'
                                   'background-color : {color_background};color : {color_text};'
                                   'border-radius: var(--rounding);'.format(
-                color_border=kwargs.get('colors').primary,
-                color_background=kwargs.get('colors').background,
-                color_text=kwargs.get('colors').text,
+                color_border=kwargs.get('colors').primary.color,
+                color_background=kwargs.get('colors').background.color,
+                color_text=kwargs.get('colors').text.color,
             ),
         )
 
-        input_html = '<input {properties_css} type="text" name="{id}" value="{value}">'.format(
+        input_html = '<input {properties_css} type="{type}" name="{id}" value="{value}">'.format(
             properties_css=properties_css,
+            type='password' if self.is_password else 'text',
             id=self.id,
             value=self.value if self.value else '',
         )
@@ -86,15 +90,15 @@ class InputSelect:
                 self.margin,
                 self.padding,
             ],
-            properties_additional='-webkit-appearance: none;' \
-                                  'width: 100%;' \
-                                  'border: 2px solid {color_border};' \
-                                  'border-radius: {rounding}px;' \
-                                  'background: #fff;' \
-                                  'cursor: pointer;' \
-                                  'font-family: inherit;' \
+            properties_additional='-webkit-appearance: none;'
+                                  'width: 100%;'
+                                  'border: 2px solid {color_border};'
+                                  'border-radius: {rounding}px;'
+                                  'background: #fff;'
+                                  'cursor: pointer;'
+                                  'font-family: inherit;'
                                   'font-size: 16px;'.format(
-                color_border=kwargs.get('colors').primary,
+                color_border=kwargs.get('colors').primary.color,
                 rounding=kwargs.get('rounding'),
             ),
         )
@@ -138,9 +142,9 @@ class InputFile:
                                   'border-radius: {rounding}px;'
                                   'color: {color_text};'
                                   'cursor: pointer;'.format(
-                color_border=kwargs.get('colors').primary,
-                color_background=kwargs.get('colors').background,
-                color_text=kwargs.get('colors').text,
+                color_border=kwargs.get('colors').primary.color,
+                color_background=kwargs.get('colors').background.color,
+                color_text=kwargs.get('colors').text.color,
                 rounding=kwargs.get('rounding'),
             ),
         )
@@ -175,9 +179,10 @@ class InputButton:
             ],
             properties_additional='cursor: pointer;border: 2px solid {color_border};'
                                   'border-radius: var(--rounding);display: flex;'
-                                  'width: fit-content;align-items: center; background-color: {color_background};'.format(
-                color_border=kwargs.get('colors').primary,
-                color_background=kwargs.get('colors').background,
+                                  'width: fit-content;align-items: center; '
+                                  'background-color: {color_background};'.format(
+                color_border=kwargs.get('colors').primary.color,
+                color_background=kwargs.get('colors').background.color,
             ),
         )
         input_select_html = '<input {properties_css} type="submit" value="{text}">'.format(
@@ -186,4 +191,3 @@ class InputButton:
         )
 
         return input_select_html
-
