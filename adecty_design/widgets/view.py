@@ -34,6 +34,7 @@ class View:
     type: str
     margin: Margin
     padding: Padding
+    properties_additional: list
 
     def __init__(
             self,
@@ -41,18 +42,20 @@ class View:
             type: str = ViewType.vertical,
             margin: Margin = Margin(),
             padding: Padding = Padding(),
+            properties_additional: list = None,
     ):
         self.widgets = widgets
         self.type = type
         self.margin = margin
         self.padding = padding
+        self.properties_additional = properties_additional if properties_additional else []
 
     def html_get(self, **kwargs):
         widgets_html = widgets_html_get(widgets=self.widgets, **kwargs)
 
         if self.type == ViewType.vertical:
             properties_css = properties_css_get(
-                properties=[self.margin, self.padding],
+                properties=[self.margin, self.padding] + self.properties_additional,
             )
             return VIEW_HTML.format(
                 properties_css=properties_css,
@@ -60,7 +63,7 @@ class View:
             )
         elif self.type == ViewType.horizontal:
             properties_css = properties_css_get(
-                properties=[self.margin, self.padding],
+                properties=[self.margin, self.padding] + self.properties_additional,
                 properties_additional='display: flex;flex-wrap: wrap;',
             )
             return VIEW_HTML.format(

@@ -12,21 +12,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 
-from adecty_design.properties.align import Align, AlignType
-from adecty_design.properties.color import Color
-from adecty_design.properties.margin import Margin
-from adecty_design.properties.padding import Padding
-from adecty_design.properties.font import Font
+class AlignType:
+    space_between = 'space_between'
 
 
-__all__ = (
-    'Margin',
-    'Padding',
-    'Font',
-    'Color',
-    'Align',
-    'AlignType',
-)
+class Align:
+    type: str
+
+    def __init__(
+            self,
+            type: str = None,
+    ):
+        self.type = type
+
+    def css_get(self, **kwargs):
+        if self.type == AlignType.space_between:
+            return 'justify-content: space-between;'

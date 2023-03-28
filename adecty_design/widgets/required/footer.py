@@ -13,8 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-
+from adecty_design.functions import properties_css_get
 from adecty_design.markups.markups import MarkupsHtml
 
 
@@ -23,8 +22,15 @@ class Footer:
         pass
 
     def html_get(self, **kwargs):
+        navigation_mobile_html = kwargs.get('navigation_mobile_html')
+
+        # 'display: none;' if not navigation_mobile_html else ''
+        properties_css = properties_css_get(
+            properties_additional='',
+        )
         footer_html = MarkupsHtml.footer.format(
             logo=kwargs.get('logo').html_get(height=16, class_name='footer__logo', color=False),
-            navigation_mobile_html=kwargs.get('navigation_mobile_html'),
+            navigation_mobile_html=navigation_mobile_html,
+            properties_css=properties_css,
         )
         return footer_html

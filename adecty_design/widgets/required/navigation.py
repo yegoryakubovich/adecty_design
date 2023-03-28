@@ -15,11 +15,17 @@
 #
 
 
+from adecty_design.functions import properties_css_get
 from adecty_design.markups.markups import MarkupsHtml
 from adecty_design.properties import Font, Color
 from adecty_design.properties.color import ColorType
 from adecty_design.widgets.text import Text
 from adecty_design.widgets.icon import Icon
+
+
+NAVIGATION_DESKTOP_HTML = '<div class="navigation__desktop" id="navigation__desktop">' \
+                          '{items_html}</div>'
+NAVIGATION_MOBILE_HTML = '<div class="navigation__mobile">{items_html}</div>'
 
 
 class NavigationItem:
@@ -98,10 +104,10 @@ class Navigation:
             navigation_desktop_items_html += navigation_desktop_item_html
             navigation_mobile_items_html += navigation_mobile_item_html
 
-        navigation_desktop_html = MarkupsHtml.navigation_desktop.format(
+        navigation_desktop_html = NAVIGATION_DESKTOP_HTML.format(
             items_html=navigation_desktop_items_html,
         )
-        navigation_mobile_html = MarkupsHtml.navigation_mobile.format(
+        navigation_mobile_html = NAVIGATION_MOBILE_HTML.format(
             items_html=navigation_mobile_items_html,
         )
 
