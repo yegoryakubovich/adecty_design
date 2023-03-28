@@ -16,7 +16,8 @@
 
 
 from adecty_design.functions import properties_css_get
-from adecty_design.properties import Margin, Padding
+from adecty_design.properties import Margin, Padding, Color
+from adecty_design.properties.color import ColorType
 
 
 class InputText:
@@ -63,7 +64,7 @@ class InputText:
             type='password' if self.is_password else 'text',
             id=self.id,
             value=self.value if self.value else '',
-            is_disabled='disabled' if self.is_disabled else '',
+            is_disabled='readonly' if self.is_disabled else '',
         )
         return input_html
 
@@ -71,6 +72,8 @@ class InputText:
 class InputSelect:
     id: str
     options: list
+    text_color: Color
+    selected: str
     margin: Margin
     padding: Padding
     is_disabled: bool
@@ -78,30 +81,42 @@ class InputSelect:
     def __init__(
             self,
             id: str,
-            options: list,
+            options: list[str],
+            text_color: Color = None,
+            selected: str = None,
             margin: Margin = Margin(horizontal=8),
             padding: Padding = Padding(horizontal=8, vertical=12),
             is_disabled: bool = False,
     ):
         self.id = id
         self.options = options
+        self.text_color = text_color
+        self.selected = selected if selected else self.options[0]
         self.margin = margin
         self.padding = padding
         self.is_disabled = is_disabled
 
     def html_get(self, **kwargs):
-        input_select_options = ''.join(['<option>{}</option>'.format(option) for option in self.options])
+        if not self.text_color:
+            self.text_color = kwargs.get('colors').text
+        self.text_color.type = ColorType.text
+
+        input_select_options = ''.join(['<option {is_selected}>{option}</option>'.format(
+            is_selected='selected' if self.selected == option else '',
+            option=option
+        ) for option in self.options])
 
         properties_css = properties_css_get(
             properties=[
                 self.margin,
                 self.padding,
+                self.text_color,
             ],
             properties_additional='-webkit-appearance: none;'
                                   'width: 100%;'
                                   'border: 2px solid {color_border};'
                                   'border-radius: {rounding}px;'
-                                  'background: #fff;'
+                                  'background: var(--background);'
                                   'cursor: pointer;'
                                   'font-family: inherit;'
                                   'font-size: 16px;'.format(
@@ -114,11 +129,20 @@ class InputSelect:
                             '{input_select_options}' \
                             '</select>' \
                             '</div>'.format(
-            input_select_id=self.id,
+            input_select_id=self.id if not self.is_disabled else self.id + '_disabled',
             properties_css=properties_css,
             input_select_options=input_select_options,
             is_disabled='disabled' if self.is_disabled else '',
         )
+        if self.is_disabled:
+            input_select_html += '<div class="select">' \
+                                 '<select name="{input_select_id}" required="required" hidden>' \
+                                 '{input_select_options}' \
+                                 '</select>' \
+                                 '</div>'.format(
+                input_select_id=self.id,
+                input_select_options=input_select_options,
+            )
 
         return input_select_html
 
@@ -162,7 +186,7 @@ class InputFile:
         input_select_html = '<input {properties_css} type="file" name="{id}" {is_disabled}>'.format(
             properties_css=properties_css,
             id=self.id,
-            is_disabled='disabled' if self.is_disabled else '',
+            is_disabled='readonly' if self.is_disabled else '',
         )
 
         return input_select_html
@@ -177,20 +201,27 @@ class InputButton:
     def __init__(
             self,
             text: str,
+            text_color: Color = None,
             margin: Margin = Margin(horizontal=8),
             padding: Padding = Padding(horizontal=12, vertical=24),
             is_disabled: bool = False,
     ):
         self.text = text
+        self.text_color = text_color
         self.margin = margin
         self.padding = padding
         self.is_disabled = is_disabled
 
     def html_get(self, **kwargs):
+        if not self.text_color:
+            self.text_color = kwargs.get('colors').primary
+        self.text_color.type = ColorType.text
+
         properties_css = properties_css_get(
             properties=[
                 self.margin,
                 self.padding,
+                self.text_color,
             ],
             properties_additional='cursor: pointer;border: 2px solid {color_border};'
                                   'border-radius: var(--rounding);display: flex;'
@@ -203,7 +234,7 @@ class InputButton:
         input_select_html = '<input {properties_css} type="submit" value="{text}" {is_disabled}>'.format(
             properties_css=properties_css,
             text=self.text,
-            is_disabled='disabled' if self.is_disabled else '',
+            is_disabled='readonly' if self.is_disabled else '',
         )
 
         return input_select_html
