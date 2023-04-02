@@ -111,11 +111,12 @@ class Interface:
                           color_positive=self.colors.positive.color,
                           rounding=self.rounding,
                       ) + '}'
-        styles = '<style>{styles_vars}{style_base}{style_header}{style_footer}{style_navigation}' \
+        styles = '<style>{styles_vars}{style_base}{style_normalize}{style_header}{style_footer}{style_navigation}' \
                  '{style_table}{style_dictionary}{style_orientation}{style_view}</style>'
         styles = styles.format(
             styles_vars=styles_vars,
             style_base=MarkupsStyles.interface,
+            style_normalize=MarkupsStyles.normalize,
             style_header=MarkupsStyles.header,
             style_footer=MarkupsStyles.footer,
             style_navigation=MarkupsStyles.navigation,

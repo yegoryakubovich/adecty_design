@@ -53,6 +53,7 @@ class MarkupsHtml:
 
 class MarkupsStyles:
     interface = css_get('interface')
+    normalize = css_get('normalize')
     orientation = css_get('orientation')
     header = css_get('header')
     footer = css_get('footer')
