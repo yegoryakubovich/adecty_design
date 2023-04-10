@@ -25,4 +25,5 @@ function orientation_update() {
 }
 
 $(window).resize(orientation);
-window.onload = orientation_update();
+$(window).onload = setTimeout(orientation_update, 1);
+$(window).onload = orientation_update();
