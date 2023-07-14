@@ -13,8 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-
+from adecty_design.properties import Font
 # FIXME
 
 
@@ -34,8 +33,8 @@ class Table:
 
         columns_html = ''
         for column in self.columns:
-            column_element_html = Text(text=column, color=kwargs.get('colors').background.color).html_get(**kwargs) \
-                if type(column) is str else column.css_get(**kwargs)
+            column_element_html = Text(text=column, font=Font(color=kwargs.get('colors').background)).html_get(**kwargs) \
+                if type(column) is str else column.html_get(**kwargs)
             columns_html += '<th>{column_element}</th>'.format(column_element=column_element_html)
 
         rows_html = ''
@@ -48,7 +47,7 @@ class Table:
                 elif type(element) is str:
                     row_element_html += Text(text=element).html_get(**kwargs)
                 else:
-                    row_element_html += element.css_get(**kwargs)
+                    row_element_html += element.html_get(**kwargs)
                 row_html += '<td>{row_element}</td>'.format(row_element=row_element_html)
             rows_html += '<tr>{row}</tr>'.format(row=row_html)
 

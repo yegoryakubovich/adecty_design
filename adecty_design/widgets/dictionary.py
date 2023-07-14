@@ -47,10 +47,16 @@ class Dictionary:
             key = self.keys[i]
             value = self.values[i]
 
-            key_html = Text(text=key).html_get(**kwargs) \
-                if type(key) is str else key.css_get(**kwargs)
-            value_html = Text(text=value).html_get(**kwargs) \
-                if type(value) is str else value.css_get(**kwargs)
+            if not key:
+                key = ''
+            if not value:
+                value = ''
+
+            key = Text(text=str(key), margin=Margin(horizontal=4)) if type(key) in [str, int] else key
+            value = Text(text=str(value), margin=Margin(horizontal=4)) if type(value) in [str, int] else value
+
+            key_html = key.html_get(**kwargs)
+            value_html = value.html_get(**kwargs)
 
             rows_html += '<tr>' \
                          '<td class="dictionary__key">{key_html}</td><td class="dictionary__value">{value_html}</td>' \

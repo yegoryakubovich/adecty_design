@@ -19,7 +19,7 @@ from adecty_design.widgets.card import Card
 from adecty_design.widgets.button import Button, ButtonType
 from adecty_design.widgets.dictionary import Dictionary
 from adecty_design.widgets.form import Form
-from adecty_design.widgets.input import InputText, InputSelect, InputButton, InputFile
+from adecty_design.widgets.input import InputText, InputSelect, InputButton, InputFile, InputDateTime
 from adecty_design.widgets.table import Table
 from adecty_design.widgets.text import Text
 from adecty_design.widgets.url import Url
@@ -36,6 +36,7 @@ __all__ = (
     'Table',
     'Form',
     'InputText',
+    'InputDateTime',
     'InputSelect',
     'InputButton',
     'InputFile',

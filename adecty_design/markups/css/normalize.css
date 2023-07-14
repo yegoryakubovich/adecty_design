@@ -177,3 +177,7 @@ template {
 [hidden] {
   display: none;
 }
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}

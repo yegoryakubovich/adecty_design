@@ -43,6 +43,9 @@ class Text:
         self.padding = padding
 
     def html_get(self, **kwargs):
+        if type(self.text) == str:
+            self.text = self.text.replace('\n', '<br>')
+
         properties_css = properties_css_get(
             properties=[self.font, self.margin, self.padding],
             properties_additional='align-self: center;', **kwargs,

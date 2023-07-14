@@ -20,6 +20,9 @@ from adecty_design.properties import Margin, Padding, Color
 from adecty_design.properties.color import ColorType
 
 
+INPUT_TEXT_MULTILINE_HTML = '<textarea {properties_css} name="{id}" wrap="off" {is_disabled}>{value}</textarea>'
+
+
 class InputText:
     id: str
     value: str
@@ -27,21 +30,100 @@ class InputText:
     padding: Padding
     is_password: bool
     is_disabled: bool
+    is_multiline: bool
 
     def __init__(
             self,
             id: str = None,
             value: str = None,
             margin: Margin = Margin(horizontal=8, ),
-            padding: Padding = Padding(horizontal=12, vertical=12),
+            padding: Padding = Padding(horizontal=8, vertical=12),
             is_password: bool = False,
             is_disabled: bool = False,
+            is_multiline: bool = False,
     ):
         self.id = id
         self.value = value
         self.margin = margin
         self.padding = padding
         self.is_password = is_password
+        self.is_disabled = is_disabled
+        self.is_multiline = is_multiline
+
+    def html_get(self, **kwargs):
+        properties_css = properties_css_get(
+            properties=[
+                self.margin,
+                self.padding,
+            ],
+            properties_additional='width: 100%;box-sizing: border-box;border: 2px solid {color_border};'
+                                  'background-color : {color_background};color : {color_text};'
+                                  'border-radius: var(--rounding);'.format(
+                color_border=kwargs.get('colors').primary.color,
+                color_background=kwargs.get('colors').background.color,
+                color_text=kwargs.get('colors').unselected.color
+                if self.is_disabled else kwargs.get('colors').text.color,
+            ),
+        )
+
+        input_html = '<input {properties_css} type="{type}" name="{id}" value="{value}" {is_disabled}>'.format(
+            properties_css=properties_css,
+            type='password' if self.is_password else 'text',
+            id=self.id,
+            value=self.value if self.value else '',
+            is_disabled='readonly' if self.is_disabled else '',
+        )
+        if self.is_multiline:
+            properties_css = properties_css_get(
+                properties=[
+                    self.margin,
+                    self.padding,
+                ],
+                properties_additional='display: block;'
+                                      'width: 100%;'
+                                      'overflow: hidden;'
+                                      'line-height: 20px;'
+                                      'box-sizing: border-box;'
+                                      'border: 2px solid {color_border};'
+                                      'background-color: {color_background};'
+                                      'color: {color_text};'
+                                      'border-radius: var(--rounding);'
+                                      'resize: none;'
+                                      'overflow-y: hidden;'.format(
+                    color_border=kwargs.get('colors').primary.color,
+                    color_background=kwargs.get('colors').background.color,
+                    color_text=kwargs.get('colors').unselected.color
+                    if self.is_disabled else kwargs.get('colors').text.color,
+                ),
+            )
+            input_html = INPUT_TEXT_MULTILINE_HTML.format(
+                id=self.id,
+                properties_css=properties_css,
+                value=self.value if self.value else '',
+                is_disabled='readonly' if self.is_disabled else '',
+            )
+        return input_html
+
+
+class InputDateTime:
+    id: str
+    value: str
+    margin: Margin
+    padding: Padding
+    is_disabled: bool
+
+    def __init__(
+            self,
+            id: str = None,
+            value: str = None,
+            margin: Margin = Margin(horizontal=8, ),
+            padding: Padding = Padding(horizontal=8, vertical=12),
+            is_disabled: bool = False,
+    ):
+        self.id = id
+        self.value = value
+        self.margin = margin
+        self.padding = padding
         self.is_disabled = is_disabled
 
     def html_get(self, **kwargs):
@@ -55,13 +137,13 @@ class InputText:
                                   'border-radius: var(--rounding);'.format(
                 color_border=kwargs.get('colors').primary.color,
                 color_background=kwargs.get('colors').background.color,
-                color_text=kwargs.get('colors').text.color,
+                color_text=kwargs.get('colors').unselected.color
+                if self.is_disabled else kwargs.get('colors').text.color,
             ),
         )
 
-        input_html = '<input {properties_css} type="{type}" name="{id}" value="{value}" {is_disabled}>'.format(
+        input_html = '<input {properties_css} type="datetime-local" name="{id}" value="{value}" {is_disabled}>'.format(
             properties_css=properties_css,
-            type='password' if self.is_password else 'text',
             id=self.id,
             value=self.value if self.value else '',
             is_disabled='readonly' if self.is_disabled else '',
@@ -216,6 +298,9 @@ class InputButton:
         if not self.text_color:
             self.text_color = kwargs.get('colors').primary
         self.text_color.type = ColorType.text
+
+        if self.text:
+            self.text = self.text.replace('\n', '<br>')
 
         properties_css = properties_css_get(
             properties=[

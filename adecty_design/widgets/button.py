@@ -18,11 +18,15 @@
 from types import NoneType
 
 from adecty_design.functions import properties_css_get
-from adecty_design.markups.markups import MarkupsHtml
 from adecty_design.properties import Margin, Padding, Color, Font
 from adecty_design.properties.color import ColorType
 from adecty_design.widgets.text import Text
 from adecty_design.widgets.icon import Icon
+
+
+BUTTON_DEFAULT_HTML = '<a class="button__default" href="{url}" {properties_css}>{icon_html}{text_html}</a>'
+BUTTON_CHIP_HTML = '<a class="button__chip" href="{url}" {properties_css}>{icon_html}{text_html}</a>'
+BUTTON_CARD_HTML = '<a class="button__card" href="{url}" {properties_css}>{icon_html}{text_html}</a>'
 
 
 class ButtonType:
@@ -74,7 +78,7 @@ class Button:
             if self.type == ButtonType.default:
                 self.margin = Margin(horizontal=0)
             elif self.type == ButtonType.chip:
-                self.margin = Margin(right=8)
+                self.margin = Margin(right=8, down=6)
 
         if not self.padding:
             if self.type == ButtonType.default:
@@ -110,7 +114,7 @@ class Button:
                     border_color=kwargs.get('colors').primary.color,
                 ),
             )
-            button_html = MarkupsHtml.button_default.format(
+            button_html = BUTTON_DEFAULT_HTML.format(
                 properties_css=properties_css,
                 url=self.url,
                 icon_html=icon_html,
@@ -123,10 +127,69 @@ class Button:
                 properties_additional='cursor: pointer;border: 0;border-radius: 100px;display: flex;'
                                       'width: fit-content;align-items: center;',
             )
-            button_html = MarkupsHtml.button_chip.format(
+            button_html = BUTTON_CHIP_HTML.format(
                 properties_css=properties_css,
                 url=self.url,
                 icon_html=icon_html,
                 text_html=text_html,
             )
             return button_html
+
+
+class ButtonCard:
+    url: str
+    icon: Icon
+    text: Text | str
+    margin: Margin
+    padding: Padding
+
+    def __init__(
+            self,
+            url: str,
+            text: Text | str = None,
+            icon: Icon = None,
+            margin: Margin = None,
+            padding: Padding = None,
+    ):
+        self.type = type
+        self.url = url
+        self.icon = icon
+        self.text = text
+        self.margin = margin
+        self.padding = padding
+
+    def html_get(self, **kwargs):
+        if type(self.text) in [str, NoneType]:
+            self.text = Text(
+                text=self.text,
+                margin=Margin(top=8 if self.icon and self.text else 0),
+                font=Font(
+                    weight=700,
+                    size=24,
+                ),
+            )
+
+        if not self.margin:
+            self.margin = Margin(horizontal=0)
+
+        if not self.padding:
+            self.padding = Padding(horizontal=12, vertical=24)
+
+        text_html = self.text.html_get(**kwargs)
+        icon_html = self.icon.html_get(height=24, **kwargs,) if self.icon else ''
+
+        properties_css = properties_css_get(
+            properties=[self.margin, self.padding],
+            properties_additional='cursor: pointer;border: 4px solid {border_color};border-radius: var(--rounding);'
+                                  'display: flex;width: fit-content;'
+                                  'align-items: center;flex-direction: column;'.format(
+                border_color=kwargs.get('colors').primary.color,
+            ),
+        )
+        button_html = BUTTON_CARD_HTML.format(
+            properties_css=properties_css,
+            url=self.url,
+            icon_html=icon_html,
+            text_html=text_html,
+        )
+        return button_html

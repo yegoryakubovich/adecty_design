@@ -42,7 +42,10 @@ class Icon:
     def html_get(self, height: int, class_name: str = '', color: Color = None, **kwargs):
         if color:
             self.color = color
-        self.color = Color(color=self.color.color if self.color else kwargs.get('colors').primary.color, type=ColorType.fill)
+        self.color = Color(
+            color=self.color.color if self.color else kwargs.get('colors').primary.color,
+            type=ColorType.fill,
+        )
 
         svg_current = self.svg
         svg_current.set('width', str(int(self.width*height/self.height)))
